@@ -30,6 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.Interval = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.Save_button = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.Alert2Box = new System.Windows.Forms.RichTextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.Alert1Box = new System.Windows.Forms.RichTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -47,20 +54,27 @@
             this.label2 = new System.Windows.Forms.Label();
             this.DayofWeakBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.Alert2Box = new System.Windows.Forms.RichTextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.Save_button = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.UsersList = new System.Windows.Forms.DataGridView();
+            this.E = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.U = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.S = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StartCheck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupHour)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UsersList)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.Interval);
+            this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.Save_button);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.Alert2Box);
@@ -85,14 +99,90 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(396, 582);
+            this.groupBox1.Size = new System.Drawing.Size(396, 619);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(326, 101);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(61, 20);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "секунд";
+            // 
+            // Interval
+            // 
+            this.Interval.Location = new System.Drawing.Point(270, 99);
+            this.Interval.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.Interval.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.Interval.Name = "Interval";
+            this.Interval.Size = new System.Drawing.Size(46, 26);
+            this.Interval.TabIndex = 22;
+            this.Interval.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 101);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(159, 20);
+            this.label13.TabIndex = 21;
+            this.label13.Text = "Интервал проверки";
+            // 
+            // Save_button
+            // 
+            this.Save_button.Location = new System.Drawing.Point(13, 573);
+            this.Save_button.Name = "Save_button";
+            this.Save_button.Size = new System.Drawing.Size(367, 35);
+            this.Save_button.TabIndex = 20;
+            this.Save_button.Text = "Сохранить";
+            this.Save_button.UseVisualStyleBackColor = true;
+            this.Save_button.Click += new System.EventHandler(this.Save_button_Click);
+            // 
+            // label12
+            // 
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(10, 520);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(370, 39);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "* Переменная {time} используется для подстановки времени.";
+            // 
+            // Alert2Box
+            // 
+            this.Alert2Box.Location = new System.Drawing.Point(10, 408);
+            this.Alert2Box.Name = "Alert2Box";
+            this.Alert2Box.Size = new System.Drawing.Size(370, 105);
+            this.Alert2Box.TabIndex = 18;
+            this.Alert2Box.Text = "";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 385);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(292, 20);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "Оповещение о выполняемом бэкапе*";
+            // 
             // Alert1Box
             // 
-            this.Alert1Box.Location = new System.Drawing.Point(10, 232);
+            this.Alert1Box.Location = new System.Drawing.Point(10, 268);
             this.Alert1Box.Name = "Alert1Box";
             this.Alert1Box.Size = new System.Drawing.Size(370, 105);
             this.Alert1Box.TabIndex = 16;
@@ -101,7 +191,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 208);
+            this.label10.Location = new System.Drawing.Point(6, 244);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(292, 20);
             this.label10.TabIndex = 15;
@@ -110,7 +200,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(326, 172);
+            this.label8.Location = new System.Drawing.Point(326, 208);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(54, 20);
             this.label8.TabIndex = 14;
@@ -118,7 +208,7 @@
             // 
             // BackupDuration
             // 
-            this.BackupDuration.Location = new System.Drawing.Point(270, 170);
+            this.BackupDuration.Location = new System.Drawing.Point(270, 206);
             this.BackupDuration.Maximum = new decimal(new int[] {
             60,
             0,
@@ -141,7 +231,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 172);
+            this.label9.Location = new System.Drawing.Point(6, 208);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(178, 20);
             this.label9.TabIndex = 12;
@@ -150,7 +240,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(326, 136);
+            this.label7.Location = new System.Drawing.Point(326, 172);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(54, 20);
             this.label7.TabIndex = 11;
@@ -158,7 +248,7 @@
             // 
             // AlertInterval
             // 
-            this.AlertInterval.Location = new System.Drawing.Point(270, 134);
+            this.AlertInterval.Location = new System.Drawing.Point(270, 170);
             this.AlertInterval.Maximum = new decimal(new int[] {
             60,
             0,
@@ -181,7 +271,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 136);
+            this.label6.Location = new System.Drawing.Point(6, 172);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(182, 20);
             this.label6.TabIndex = 9;
@@ -190,7 +280,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(326, 100);
+            this.label5.Location = new System.Drawing.Point(326, 136);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 20);
             this.label5.TabIndex = 8;
@@ -198,7 +288,7 @@
             // 
             // StartCheck
             // 
-            this.StartCheck.Location = new System.Drawing.Point(270, 98);
+            this.StartCheck.Location = new System.Drawing.Point(270, 134);
             this.StartCheck.Maximum = new decimal(new int[] {
             60,
             0,
@@ -221,7 +311,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 100);
+            this.label4.Location = new System.Drawing.Point(6, 136);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 20);
             this.label4.TabIndex = 6;
@@ -295,58 +385,74 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "День недели";
             // 
-            // label11
+            // groupBox2
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 349);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(292, 20);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "Оповещение о выполняемом бэкапе*";
+            this.groupBox2.Controls.Add(this.UsersList);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox2.Location = new System.Drawing.Point(415, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(373, 303);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Пользователи";
             // 
-            // Alert2Box
+            // UsersList
             // 
-            this.Alert2Box.Location = new System.Drawing.Point(10, 372);
-            this.Alert2Box.Name = "Alert2Box";
-            this.Alert2Box.Size = new System.Drawing.Size(370, 105);
-            this.Alert2Box.TabIndex = 18;
-            this.Alert2Box.Text = "";
+            this.UsersList.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.UsersList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.UsersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.UsersList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.E,
+            this.U,
+            this.S});
+            this.UsersList.Location = new System.Drawing.Point(6, 28);
+            this.UsersList.Name = "UsersList";
+            this.UsersList.RowHeadersVisible = false;
+            this.UsersList.Size = new System.Drawing.Size(361, 219);
+            this.UsersList.TabIndex = 0;
             // 
-            // label12
+            // E
             // 
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(10, 484);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(370, 39);
-            this.label12.TabIndex = 19;
-            this.label12.Text = "* Переменная {time} используется для подстановки времени.";
+            this.E.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.E.HeaderText = "Enabled";
+            this.E.Name = "E";
             // 
-            // Save_button
+            // U
             // 
-            this.Save_button.Location = new System.Drawing.Point(13, 537);
-            this.Save_button.Name = "Save_button";
-            this.Save_button.Size = new System.Drawing.Size(367, 35);
-            this.Save_button.TabIndex = 20;
-            this.Save_button.Text = "Сохранить";
-            this.Save_button.UseVisualStyleBackColor = true;
+            this.U.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.U.HeaderText = "User";
+            this.U.Name = "U";
+            this.U.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.U.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // S
+            // 
+            this.S.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.S.HeaderText = "Status";
+            this.S.Name = "S";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 603);
+            this.ClientSize = new System.Drawing.Size(800, 640);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Парус Бэкап Помощник";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StartCheck)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupHour)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.UsersList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -375,6 +481,14 @@
         private System.Windows.Forms.RichTextBox Alert2Box;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button Save_button;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.NumericUpDown Interval;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView UsersList;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn E;
+        private System.Windows.Forms.DataGridViewTextBoxColumn U;
+        private System.Windows.Forms.DataGridViewTextBoxColumn S;
     }
 }
 

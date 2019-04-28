@@ -133,7 +133,7 @@ namespace ParusBackupAlerts
         {
             List<Process> pname = new List<Process>();
             foreach (var p in Process.GetProcesses())
-                if ((p.ProcessName.ToLower() == "person" || p.ProcessName.ToLower() == "salary") && Process.GetCurrentProcess().SessionId == p.SessionId) pname.Add(p);
+                if ((p.ProcessName.ToLower() == "person" || p.ProcessName.ToLower() == "calculator") && Process.GetCurrentProcess().SessionId == p.SessionId) pname.Add(p); //change later
             return pname;
         }
 
