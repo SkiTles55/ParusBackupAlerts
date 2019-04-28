@@ -133,7 +133,7 @@ namespace ParusBackupAlerts
         {
             List<Process> pname = new List<Process>();
             foreach (var p in Process.GetProcesses())
-                if (p.ProcessName.ToLower() == "person" || p.ProcessName.ToLower() == "salary") pname.Add(p);
+                if ((p.ProcessName.ToLower() == "person" || p.ProcessName.ToLower() == "salary") && Process.GetCurrentProcess().SessionId == p.SessionId) pname.Add(p);
             return pname;
         }
 
@@ -146,7 +146,8 @@ namespace ParusBackupAlerts
             }
             Alert window = new Alert();
             time2 = backupTime.AddMinutes(backup_duration).ToString("HH:mm");
-            window.SetMessage(alert2.Replace("{time}", time2));
+            if (alert2.Contains("{time}")) alert2 = alert2.Replace("{time}", time2);
+            window.SetMessage(alert2);
             window.ShowDialog();
         }
 
@@ -157,7 +158,8 @@ namespace ParusBackupAlerts
             lastshow = DateTime.Now;
             Alert window = new Alert();
             time1 = backupTime.ToString("HH:mm");
-            window.SetMessage(alert1.Replace("{time}", time1));
+            if (alert1.Contains("{time}")) alert1 = alert1.Replace("{time}", time1);
+            window.SetMessage(alert1);
             window.ShowDialog();
         }
 
