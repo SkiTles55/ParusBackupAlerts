@@ -22,17 +22,5 @@ namespace ParusBackupAlerts.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("04/26/2019 12:00:00")]
-        public global::System.DateTime backuptime {
-            get {
-                return ((global::System.DateTime)(this["backuptime"]));
-            }
-            set {
-                this["backuptime"] = value;
-            }
-        }
     }
 }
