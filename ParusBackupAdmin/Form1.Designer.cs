@@ -54,11 +54,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.DayofWeakBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.UsersList = new System.Windows.Forms.DataGridView();
-            this.E = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.U = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Interval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupDuration)).BeginInit();
@@ -66,8 +61,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.StartCheck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupHour)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.UsersList)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -385,61 +378,17 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "День недели";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.UsersList);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(415, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(373, 303);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Пользователи";
-            // 
-            // UsersList
-            // 
-            this.UsersList.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.UsersList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.UsersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.UsersList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.E,
-            this.U,
-            this.S});
-            this.UsersList.Location = new System.Drawing.Point(6, 28);
-            this.UsersList.Name = "UsersList";
-            this.UsersList.RowHeadersVisible = false;
-            this.UsersList.Size = new System.Drawing.Size(361, 219);
-            this.UsersList.TabIndex = 0;
-            // 
-            // E
-            // 
-            this.E.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.E.HeaderText = "Enabled";
-            this.E.Name = "E";
-            // 
-            // U
-            // 
-            this.U.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.U.HeaderText = "User";
-            this.U.Name = "U";
-            this.U.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.U.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // S
-            // 
-            this.S.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.S.HeaderText = "Status";
-            this.S.Name = "S";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 640);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(424, 640);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Парус Бэкап Помощник";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -451,8 +400,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.StartCheck)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupHour)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.UsersList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -484,11 +431,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown Interval;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView UsersList;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn E;
-        private System.Windows.Forms.DataGridViewTextBoxColumn U;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S;
     }
 }
 

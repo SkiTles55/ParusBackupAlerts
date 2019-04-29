@@ -12,6 +12,8 @@ namespace ParusBackupAdmin
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
+        static MyCustomApplicationContext icon;
+        static System.Timers.Timer checkTimer;
         static readonly string cfgfile = Application.StartupPath + @"\cfg.xml";
         public static int BackupHour;
         public static int BackupMinute;
@@ -22,19 +24,25 @@ namespace ParusBackupAdmin
         public static int backup_duration;
         public static int start_check;
         public static int alert_interval;
-        static Form1 window;
+        public static Form1 window;
+        public static Users uwindow;
         public static ConfigReloader cfgreload;
+        public static List<ITerminalServicesSession> activeusers;
 
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            activeusers = new List<ITerminalServicesSession>();
+            checkTimer = new System.Timers.Timer(5000);
+            checkTimer.Elapsed += UpdateUsers;
+            checkTimer.Enabled = true;
+            icon = new MyCustomApplicationContext();
             cfgreload = new ConfigReloader(Path.GetDirectoryName(cfgfile), Path.GetFileName(cfgfile));
             cfgreload.Run();
             cfgreload.Load();
-            window = new Form1();
-            Application.Run(window);
+            Application.Run(icon);
         }
 
         public class ConfigReloader
@@ -175,40 +183,40 @@ namespace ParusBackupAdmin
             catch { }
         }
 
-        /*
-        public static IList<ITerminalServicesSession> LoggedUsers()
+        static void UpdateUsers(object sender, System.Timers.ElapsedEventArgs e)
         {
+            activeusers.Clear();
             ITerminalServicesManager manager = new TerminalServicesManager();
             using (ITerminalServer server = manager.GetLocalServer())
             {
                 server.Open();
-                return server.GetSessions();
-            }
-        }
-        */
-
-        public static List<UserInfo> LoggedUsers()
-        {
-            List<UserInfo> users = new List<UserInfo>();
-            ITerminalServicesManager manager = new TerminalServicesManager();
-            using (ITerminalServer server = manager.GetLocalServer())
-            {
-                server.Open();
-                foreach (var s in server.GetSessions())
+                foreach (var session in server.GetSessions())
                 {
-                    UserInfo current = new UserInfo
+                    var processes = session.GetProcesses();
+                    if (ParusRunned(processes))
                     {
-                        Name = s.UserName,
-                        Enabled = true,
-                        HelperRunned = false,
-                        sessionId = s.SessionId
-                    };
-                    foreach (var proc in s.GetProcesses())
-                        if (proc.ProcessName.ToLower() == "notepad.exe") current.HelperRunned = true; //change later
-                    users.Add(current);
+                        activeusers.Add(session);
+                        //check for helper later
+                    }
                 }
             }
-            return users;
+            if (uwindow != null) uwindow.UpdateList();
+        }
+
+        static bool ParusRunned(IList<ITerminalServicesProcess> list)
+        {
+            bool result = false;
+            foreach (var l in list)
+                if (l.ProcessName.ToLower() == "salary.exe" || l.ProcessName.ToLower() == "person.exe" || l.ProcessName.ToLower() == "account.exe") result = true;
+            return result;
+        }
+
+        static bool HelperRunned(IList<ITerminalServicesProcess> list)
+        {
+            bool result = false;
+            foreach (var l in list)
+                if (l.ProcessName.ToLower() == "parusbackupalerts.exe") result = true;
+            return result;
         }
     }
 }

@@ -14,17 +14,6 @@ namespace ParusBackupAdmin
         private void Form1_Load(object sender, EventArgs e)
         {
             UpdateSettings();
-            /*
-            foreach (var s in Program.LoggedUsers())
-            {
-                string st = "not runned";
-                foreach (var proc in s.GetProcesses())
-                {
-                    if (proc.ProcessName.ToLower() == "notepad.exe") st = "runned";
-                }
-                UsersList.Rows.Add(true, s.UserName, st);
-            }
-            */
         }
 
         public void UpdateSettings()
