@@ -1,7 +1,9 @@
 ﻿using Cassia;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Security;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -13,7 +15,7 @@ namespace ParusBackupAdmin
         /// Главная точка входа для приложения.
         /// </summary>
         static MyCustomApplicationContext icon;
-        static System.Timers.Timer checkTimer;
+        public static System.Timers.Timer checkTimer;
         static readonly string cfgfile = Application.StartupPath + @"\cfg.xml";
         public static int BackupHour;
         public static int BackupMinute;
@@ -27,15 +29,21 @@ namespace ParusBackupAdmin
         public static Form1 window;
         public static Users uwindow;
         public static ConfigReloader cfgreload;
-        public static List<ITerminalServicesSession> activeusers;
+        public static List<UserSession> activeusers;
+
+        public class UserSession
+        {
+            public ITerminalServicesSession session;
+            public bool HelperStarted;
+        }
 
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            activeusers = new List<ITerminalServicesSession>();
-            checkTimer = new System.Timers.Timer(5000);
+            activeusers = new List<UserSession>();
+            checkTimer = new System.Timers.Timer(Properties.Settings.Default.check_interval * 10000);
             checkTimer.Elapsed += UpdateUsers;
             checkTimer.Enabled = true;
             icon = new MyCustomApplicationContext();
@@ -193,14 +201,40 @@ namespace ParusBackupAdmin
                 foreach (var session in server.GetSessions())
                 {
                     var processes = session.GetProcesses();
+                    var helper = HelperRunned(processes);
+                    if (!helper && Properties.Settings.Default.autohelper_checkbox)
+                    {
+                        StartHelper(session.UserName);
+                        helper = HelperRunned(session.GetProcesses());
+                    }
                     if (ParusRunned(processes))
                     {
-                        activeusers.Add(session);
-                        //check for helper later
+                        activeusers.Add(new UserSession
+                        {
+                            session = session,
+                            HelperStarted = helper
+                        });   
                     }
                 }
             }
-            if (uwindow != null) uwindow.UpdateList();
+            if (uwindow != null)
+            {
+                try { uwindow.UpdateList(); }
+                catch { }
+            }
+        }
+
+        static void StartHelper(string username)
+        {
+            SecureString password = new SecureString();
+            foreach (var ch in "456Яяя789")
+                password.AppendChar(ch);
+            Process process = new Process();
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.FileName = Application.StartupPath + "\\ParusBackupAlerts.exe";
+            process.StartInfo.UserName = username;
+            process.StartInfo.Password = password;
+            process.Start();
         }
 
         static bool ParusRunned(IList<ITerminalServicesProcess> list)
@@ -215,7 +249,13 @@ namespace ParusBackupAdmin
         {
             bool result = false;
             foreach (var l in list)
-                if (l.ProcessName.ToLower() == "parusbackupalerts.exe") result = true;
+                if (l.ProcessName.ToLower() == "parusbackupalerts.exe")
+                {
+                    if (!l.UnderlyingProcess.Responding)
+                        l.Kill();
+                    else
+                        result = true;
+                }
             return result;
         }
     }

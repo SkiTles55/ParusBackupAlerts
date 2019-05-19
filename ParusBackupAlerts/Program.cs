@@ -127,6 +127,12 @@ namespace ParusBackupAlerts
                     t.Start();
                 }
             }
+            if (DateTime.Now > backupT.AddMinutes(backup_duration))
+                if (Application.OpenForms.OfType<Alert>().Count() > 0)
+                {
+                    foreach (var f in Application.OpenForms.OfType<Alert>())
+                        f.Close();
+                }
         }
 
         static List<Process> ParusProcesses()
