@@ -30,6 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.SavePathSet = new System.Windows.Forms.Button();
+            this.BackupSavePath = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.dirRemove = new System.Windows.Forms.Button();
+            this.dirEdit = new System.Windows.Forms.Button();
+            this.dirAdd = new System.Windows.Forms.Button();
+            this.dirsList = new System.Windows.Forms.ListBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.Interval = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
@@ -65,6 +73,14 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.SavePathSet);
+            this.groupBox1.Controls.Add(this.BackupSavePath);
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.dirRemove);
+            this.groupBox1.Controls.Add(this.dirEdit);
+            this.groupBox1.Controls.Add(this.dirAdd);
+            this.groupBox1.Controls.Add(this.dirsList);
+            this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.Interval);
             this.groupBox1.Controls.Add(this.label13);
@@ -92,10 +108,89 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(396, 619);
+            this.groupBox1.Size = new System.Drawing.Size(827, 619);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки";
+            // 
+            // SavePathSet
+            // 
+            this.SavePathSet.Location = new System.Drawing.Point(685, 266);
+            this.SavePathSet.Name = "SavePathSet";
+            this.SavePathSet.Size = new System.Drawing.Size(130, 30);
+            this.SavePathSet.TabIndex = 31;
+            this.SavePathSet.Text = "Обзор";
+            this.SavePathSet.UseVisualStyleBackColor = true;
+            this.SavePathSet.Click += new System.EventHandler(this.SavePathSet_Click);
+            // 
+            // BackupSavePath
+            // 
+            this.BackupSavePath.Location = new System.Drawing.Point(423, 268);
+            this.BackupSavePath.Name = "BackupSavePath";
+            this.BackupSavePath.ReadOnly = true;
+            this.BackupSavePath.Size = new System.Drawing.Size(255, 26);
+            this.BackupSavePath.TabIndex = 30;
+            this.BackupSavePath.Text = global::ParusBackupAdmin.Properties.Settings.Default.savepath;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(419, 244);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(247, 20);
+            this.label16.TabIndex = 29;
+            this.label16.Text = "Папка для сохранения бэкапов";
+            // 
+            // dirRemove
+            // 
+            this.dirRemove.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_delete;
+            this.dirRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.dirRemove.Location = new System.Drawing.Point(785, 130);
+            this.dirRemove.Name = "dirRemove";
+            this.dirRemove.Size = new System.Drawing.Size(30, 30);
+            this.dirRemove.TabIndex = 28;
+            this.dirRemove.UseVisualStyleBackColor = true;
+            this.dirRemove.Click += new System.EventHandler(this.dirRemove_Click);
+            // 
+            // dirEdit
+            // 
+            this.dirEdit.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_edit;
+            this.dirEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.dirEdit.Location = new System.Drawing.Point(785, 96);
+            this.dirEdit.Name = "dirEdit";
+            this.dirEdit.Size = new System.Drawing.Size(30, 30);
+            this.dirEdit.TabIndex = 27;
+            this.dirEdit.UseVisualStyleBackColor = true;
+            this.dirEdit.Click += new System.EventHandler(this.dirEdit_Click);
+            // 
+            // dirAdd
+            // 
+            this.dirAdd.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_add;
+            this.dirAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.dirAdd.Location = new System.Drawing.Point(785, 64);
+            this.dirAdd.Name = "dirAdd";
+            this.dirAdd.Size = new System.Drawing.Size(30, 30);
+            this.dirAdd.TabIndex = 26;
+            this.dirAdd.UseVisualStyleBackColor = true;
+            this.dirAdd.Click += new System.EventHandler(this.dirAdd_Click);
+            // 
+            // dirsList
+            // 
+            this.dirsList.FormattingEnabled = true;
+            this.dirsList.ItemHeight = 20;
+            this.dirsList.Location = new System.Drawing.Point(423, 64);
+            this.dirsList.Name = "dirsList";
+            this.dirsList.Size = new System.Drawing.Size(356, 164);
+            this.dirsList.TabIndex = 25;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(419, 31);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(202, 20);
+            this.label15.TabIndex = 24;
+            this.label15.Text = "Список папок для бэкапа";
             // 
             // label14
             // 
@@ -382,7 +477,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 640);
+            this.ClientSize = new System.Drawing.Size(855, 640);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -431,6 +526,14 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown Interval;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button dirAdd;
+        private System.Windows.Forms.ListBox dirsList;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button dirEdit;
+        private System.Windows.Forms.Button dirRemove;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox BackupSavePath;
+        private System.Windows.Forms.Button SavePathSet;
     }
 }
 

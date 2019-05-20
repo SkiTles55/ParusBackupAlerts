@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -14,6 +15,7 @@ namespace ParusBackupAdmin
         private void Form1_Load(object sender, EventArgs e)
         {
             UpdateSettings();
+            RefreshDirList();
         }
 
         public void UpdateSettings()
@@ -65,6 +67,72 @@ namespace ParusBackupAdmin
                 {
                     Program.cfgreload.Save();
                 }
+            }
+        }
+
+        private void dirAdd_Click(object sender, EventArgs e)
+        {
+            InputWindow input = new InputWindow()
+            {
+                Owner = this,
+                HelpText = "Добавление папки для бэкапа",
+                Title = "Добавление папки для бэкапа"
+            };
+            input.ShowDialog();
+            RefreshDirList();
+            Properties.Settings.Default.dirs = JsonConvert.SerializeObject(Program.dirs);
+            Properties.Settings.Default.Save();
+        }
+
+        private void RefreshDirList()
+        {
+            dirsList.Items.Clear();
+            foreach (var dir in Program.dirs)
+                dirsList.Items.Add(dir);
+        }
+
+        private void dirEdit_Click(object sender, EventArgs e)
+        {
+            if (dirsList.SelectedItem == null) return;
+            Program.dirs.Remove(dirsList.SelectedItem.ToString());
+            InputWindow input = new InputWindow()
+            {
+                Owner = this,
+                HelpText = "Редактирование папки",
+                Title = "Редактирование папки",
+                Path = dirsList.SelectedItem.ToString()
+            };
+            input.ShowDialog();
+            RefreshDirList();
+            Properties.Settings.Default.dirs = JsonConvert.SerializeObject(Program.dirs);
+            Properties.Settings.Default.Save();
+        }
+
+        private void dirRemove_Click(object sender, EventArgs e)
+        {
+            if (dirsList.SelectedItem == null) return;
+            DialogResult dialogResult = MessageBox.Show(dirsList.SelectedItem.ToString(), "Вы точно хотите удалить эту папку из списка?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Program.dirs.Remove(dirsList.SelectedItem.ToString());
+                RefreshDirList();
+                Properties.Settings.Default.dirs = JsonConvert.SerializeObject(Program.dirs);
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void SavePathSet_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+            folderDlg.Description = "Выберите папку для сохранения бэкапов";
+            if (!String.IsNullOrEmpty(BackupSavePath.Text))
+                folderDlg.SelectedPath = BackupSavePath.Text;
+            DialogResult result = folderDlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                BackupSavePath.Text = folderDlg.SelectedPath;
+                Properties.Settings.Default.savepath = folderDlg.SelectedPath;
+                Properties.Settings.Default.Save();
             }
         }
     }

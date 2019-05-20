@@ -14,6 +14,7 @@ public class MyCustomApplicationContext : ApplicationContext
             Icon = Resources.AppIcon,
             Text = "ParusBackupAdmin",
             ContextMenu = new ContextMenu(new MenuItem[] {
+                new MenuItem("Запуск бэкапа", BackupStart),
                 new MenuItem("Пользователи", UserWindow),
                 new MenuItem("Настройки", SettingsWindow),
                 new MenuItem("О программе", About),
@@ -27,6 +28,12 @@ public class MyCustomApplicationContext : ApplicationContext
     {
         Program.uwindow = new Users();
         Program.uwindow.Show();
+    }
+
+    void BackupStart(object sender, EventArgs e)
+    {
+        Program.bwindow = new BackupWindow();
+        Program.bwindow.Show();
     }
 
     void SettingsWindow(object sender, EventArgs e)

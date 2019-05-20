@@ -1,4 +1,6 @@
 ﻿using Cassia;
+using Newtonsoft.Json;
+using ParusBackupAdmin.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,8 +30,10 @@ namespace ParusBackupAdmin
         public static int alert_interval;
         public static Form1 window;
         public static Users uwindow;
+        public static BackupWindow bwindow;
         public static ConfigReloader cfgreload;
         public static List<UserSession> activeusers;
+        public static List<string> dirs;
 
         public class UserSession
         {
@@ -43,9 +47,11 @@ namespace ParusBackupAdmin
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             activeusers = new List<UserSession>();
-            checkTimer = new System.Timers.Timer(Properties.Settings.Default.check_interval * 10000);
+            checkTimer = new System.Timers.Timer(Settings.Default.check_interval * 10000);
             checkTimer.Elapsed += UpdateUsers;
             checkTimer.Enabled = true;
+            dirs = JsonConvert.DeserializeObject<List<string>>(Settings.Default.dirs);
+            if (dirs == null) dirs = new List<string>();
             icon = new MyCustomApplicationContext();
             cfgreload = new ConfigReloader(Path.GetDirectoryName(cfgfile), Path.GetFileName(cfgfile));
             cfgreload.Run();
@@ -200,15 +206,15 @@ namespace ParusBackupAdmin
                 server.Open();
                 foreach (var session in server.GetSessions())
                 {
-                    var processes = session.GetProcesses();
-                    var helper = HelperRunned(processes);
-                    if (!helper && Properties.Settings.Default.autohelper_checkbox)
-                    {
-                        StartHelper(session.UserName);
-                        helper = HelperRunned(session.GetProcesses());
-                    }
+                    var processes = session.GetProcesses();                    
                     if (ParusRunned(processes))
                     {
+                        var helper = HelperRunned(processes);
+                        if (!helper && Settings.Default.autohelper_checkbox)
+                        {
+                            StartHelper(session.UserName);
+                            helper = HelperRunned(session.GetProcesses());
+                        }
                         activeusers.Add(new UserSession
                         {
                             session = session,

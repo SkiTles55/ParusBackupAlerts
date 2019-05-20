@@ -37,13 +37,49 @@ namespace ParusBackupAdmin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool autohelper_checkbox {
             get {
                 return ((bool)(this["autohelper_checkbox"]));
             }
             set {
                 this["autohelper_checkbox"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string dirs {
+            get {
+                return ((string)(this["dirs"]));
+            }
+            set {
+                this["dirs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string savepath {
+            get {
+                return ((string)(this["savepath"]));
+            }
+            set {
+                this["savepath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool bWautoclose {
+            get {
+                return ((bool)(this["bWautoclose"]));
+            }
+            set {
+                this["bWautoclose"] = value;
             }
         }
     }
