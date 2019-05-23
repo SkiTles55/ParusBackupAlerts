@@ -31,8 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BackupWindow));
             this.ZipProgress = new System.Windows.Forms.ProgressBar();
             this.LogOutput = new System.Windows.Forms.RichTextBox();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CancelB = new System.Windows.Forms.Button();
             this.AutoClose = new System.Windows.Forms.CheckBox();
+            this.ProgressLabel = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // ZipProgress
@@ -47,21 +49,21 @@
             this.LogOutput.Location = new System.Drawing.Point(13, 13);
             this.LogOutput.Name = "LogOutput";
             this.LogOutput.ReadOnly = true;
-            this.LogOutput.Size = new System.Drawing.Size(774, 199);
+            this.LogOutput.Size = new System.Drawing.Size(774, 267);
             this.LogOutput.TabIndex = 1;
             this.LogOutput.Text = "";
             // 
             // CancelButton
             // 
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CancelButton.Location = new System.Drawing.Point(619, 353);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(168, 33);
-            this.CancelButton.TabIndex = 2;
-            this.CancelButton.Text = "Отмена";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CancelB.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CancelB.Location = new System.Drawing.Point(619, 353);
+            this.CancelB.Name = "CancelButton";
+            this.CancelB.Size = new System.Drawing.Size(168, 33);
+            this.CancelB.TabIndex = 2;
+            this.CancelB.Text = "Отмена";
+            this.CancelB.UseVisualStyleBackColor = true;
+            this.CancelB.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // AutoClose
             // 
@@ -76,22 +78,37 @@
             this.AutoClose.UseVisualStyleBackColor = true;
             this.AutoClose.CheckedChanged += new System.EventHandler(this.AutoClose_CheckedChanged);
             // 
+            // ProgressLabel
+            // 
+            this.ProgressLabel.AutoSize = true;
+            this.ProgressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ProgressLabel.Location = new System.Drawing.Point(12, 283);
+            this.ProgressLabel.Name = "ProgressLabel";
+            this.ProgressLabel.Size = new System.Drawing.Size(0, 20);
+            this.ProgressLabel.TabIndex = 4;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
             // BackupWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 402);
             this.ControlBox = false;
+            this.Controls.Add(this.ProgressLabel);
             this.Controls.Add(this.AutoClose);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CancelB);
             this.Controls.Add(this.LogOutput);
             this.Controls.Add(this.ZipProgress);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BackupWindow";
             this.Text = "Бэкап базы данных Parus";
             this.Activated += new System.EventHandler(this.BackupWindow_Activated);
-            this.Deactivate += new System.EventHandler(this.BackupWindow_Deactivate);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,7 +118,9 @@
 
         private System.Windows.Forms.ProgressBar ZipProgress;
         private System.Windows.Forms.RichTextBox LogOutput;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CancelB;
         private System.Windows.Forms.CheckBox AutoClose;
+        private System.Windows.Forms.Label ProgressLabel;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

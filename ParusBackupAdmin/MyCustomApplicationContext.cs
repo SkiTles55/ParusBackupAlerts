@@ -32,8 +32,7 @@ public class MyCustomApplicationContext : ApplicationContext
 
     void BackupStart(object sender, EventArgs e)
     {
-        Program.bwindow = new BackupWindow();
-        Program.bwindow.Show();
+        Program.StartBackup();
     }
 
     void SettingsWindow(object sender, EventArgs e)

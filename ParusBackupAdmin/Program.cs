@@ -18,6 +18,7 @@ namespace ParusBackupAdmin
         /// </summary>
         static MyCustomApplicationContext icon;
         public static System.Timers.Timer checkTimer;
+        public static System.Timers.Timer backupTimer;
         static readonly string cfgfile = Application.StartupPath + @"\cfg.xml";
         public static int BackupHour;
         public static int BackupMinute;
@@ -56,6 +57,9 @@ namespace ParusBackupAdmin
             cfgreload = new ConfigReloader(Path.GetDirectoryName(cfgfile), Path.GetFileName(cfgfile));
             cfgreload.Run();
             cfgreload.Load();
+            backupTimer = new System.Timers.Timer(5000);
+            backupTimer.Elapsed += CheckBackupTime;
+            backupTimer.Enabled = true;
             Application.Run(icon);
         }
 
@@ -230,6 +234,22 @@ namespace ParusBackupAdmin
             }
         }
 
+        static void CheckBackupTime(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (bwindow != null) return;
+            if (DateTime.Now.DayOfWeek == backupDay && DateTime.Now.Hour == BackupHour && DateTime.Now.Minute == BackupMinute)
+            {
+                bwindow = new BackupWindow();
+                Application.Run(bwindow);
+            }
+        }
+
+        public static void StartBackup()
+        {
+            bwindow = new BackupWindow();
+            bwindow.Show();
+        }
+
         static void StartHelper(string username)
         {
             SecureString password = new SecureString();
@@ -243,7 +263,7 @@ namespace ParusBackupAdmin
             process.Start();
         }
 
-        static bool ParusRunned(IList<ITerminalServicesProcess> list)
+        public static bool ParusRunned(IList<ITerminalServicesProcess> list)
         {
             bool result = false;
             foreach (var l in list)
