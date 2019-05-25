@@ -82,5 +82,29 @@ namespace ParusBackupAdmin.Properties {
                 this["bWautoclose"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool emailnotify {
+            get {
+                return ((bool)(this["emailnotify"]));
+            }
+            set {
+                this["emailnotify"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string emails {
+            get {
+                return ((string)(this["emails"]));
+            }
+            set {
+                this["emails"] = value;
+            }
+        }
     }
 }

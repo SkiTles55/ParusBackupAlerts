@@ -16,6 +16,7 @@ namespace ParusBackupAdmin
         {
             UpdateSettings();
             RefreshDirList();
+            RefreshEmailList();
         }
 
         public void UpdateSettings()
@@ -70,6 +71,20 @@ namespace ParusBackupAdmin
             }
         }
 
+        private void RefreshDirList()
+        {
+            dirsList.Items.Clear();
+            foreach (var dir in Program.dirs)
+                dirsList.Items.Add(dir);
+        }
+
+        private void RefreshEmailList()
+        {
+            EmailList.Items.Clear();
+            foreach (var email in Program.emails)
+                EmailList.Items.Add(email);
+        }
+
         private void dirAdd_Click(object sender, EventArgs e)
         {
             InputWindow input = new InputWindow()
@@ -84,11 +99,18 @@ namespace ParusBackupAdmin
             Properties.Settings.Default.Save();
         }
 
-        private void RefreshDirList()
+        private void AddEmail_Click(object sender, EventArgs e)
         {
-            dirsList.Items.Clear();
-            foreach (var dir in Program.dirs)
-                dirsList.Items.Add(dir);
+            EmailInput input = new EmailInput()
+            {
+                Owner = this,
+                HelpText = "Добавление email адреса",
+                Text = "Добавление email адреса"
+            };
+            input.ShowDialog();
+            RefreshEmailList();
+            Properties.Settings.Default.emails = JsonConvert.SerializeObject(Program.emails);
+            Properties.Settings.Default.Save();
         }
 
         private void dirEdit_Click(object sender, EventArgs e)
@@ -106,6 +128,36 @@ namespace ParusBackupAdmin
             RefreshDirList();
             Properties.Settings.Default.dirs = JsonConvert.SerializeObject(Program.dirs);
             Properties.Settings.Default.Save();
+        }
+
+        private void EditEmail_Click(object sender, EventArgs e)
+        {
+            if (EmailList.SelectedItem == null) return;
+            Program.emails.Remove(EmailList.SelectedItem.ToString());
+            EmailInput input = new EmailInput()
+            {
+                Owner = this,
+                HelpText = "Редактирование email адреса",
+                Text = "Редактирование email адреса",
+                Path = EmailList.SelectedItem.ToString()
+            };
+            input.ShowDialog();
+            RefreshEmailList();
+            Properties.Settings.Default.emails = JsonConvert.SerializeObject(Program.emails);
+            Properties.Settings.Default.Save();
+        }
+
+        private void RemoveEmail_Click(object sender, EventArgs e)
+        {
+            if (EmailList.SelectedItem == null) return;
+            DialogResult dialogResult = MessageBox.Show(EmailList.SelectedItem.ToString(), "Вы точно хотите удалить этот email из списка?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Program.emails.Remove(EmailList.SelectedItem.ToString());
+                RefreshEmailList();
+                Properties.Settings.Default.emails = JsonConvert.SerializeObject(Program.emails);
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void dirRemove_Click(object sender, EventArgs e)
@@ -134,6 +186,12 @@ namespace ParusBackupAdmin
                 Properties.Settings.Default.savepath = folderDlg.SelectedPath;
                 Properties.Settings.Default.Save();
             }
+        }
+
+        private void EmailCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.emailnotify = EmailCheckBox.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

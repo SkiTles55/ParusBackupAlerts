@@ -7,6 +7,8 @@ using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Diagnostics;
 using Cassia;
+using System.Net;
+using System.Net.Mail;
 
 namespace ParusBackupAdmin
 {
@@ -60,7 +62,7 @@ namespace ParusBackupAdmin
                     backgroundWorker1.CancelAsync();
                     stoped = true;
                     LogOutput.AppendText(Environment.NewLine + "Создание бэкапа отменено");
-                    CancelB.Text = "Закрыть";
+                    //CancelB.Text = "Закрыть";
                     if (Properties.Settings.Default.bWautoclose) Close();
                 }
             }
@@ -135,7 +137,7 @@ namespace ParusBackupAdmin
             events.ProcessFile = ProcessFileMethod;
             FastZip fastZip = new FastZip(events);
             fastZip.CreateEmptyDirectories = true;
-            datefolder = "ParusBackup " + DateTime.Now.ToString("dd-MM-yyyy");
+            datefolder = "ParusBackup " + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
             if (!Directory.Exists(Properties.Settings.Default.savepath + "\\" + datefolder))
                 Directory.CreateDirectory(Properties.Settings.Default.savepath + "\\" + datefolder);
             foreach (var path in Program.dirs)
@@ -166,11 +168,33 @@ namespace ParusBackupAdmin
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);
             LogOutput.AppendText(Environment.NewLine + "Архивация базы данных завершена. Затрачено времени:" + elapsedTime);
             ProgressLabel.Text = "Архивация базы данных завершена";
+            if (Properties.Settings.Default.emailnotify)
+            {
+                foreach (var email in Program.emails)
+                {
+                    try { SendEmail("Архивация базы данных завершена" + Environment.NewLine + "Лог:" + Environment.NewLine + LogOutput.Text, email); }
+                    catch (Exception ex) { LogOutput.AppendText(Environment.NewLine + $"Ошибка отправка оповещения на адрес {email}: " + ex.Message); }
+                }
+            }            
             TextWriter writer = new StreamWriter(Properties.Settings.Default.savepath + "\\" + datefolder + "\\Log.txt");
             writer.Write(LogOutput.Text);
             writer.Close();
             CancelB.Text = "Закрыть";
             if (Properties.Settings.Default.bWautoclose) Close();
+        }
+
+        private void SendEmail(string text, string email)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress("ikb1.parusbackup@gmail.com", "Парус Бэкапы");
+            mail.To.Add(email);
+            mail.Subject = "Бэкап базы Парус";
+            mail.Body = text;
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new NetworkCredential("ikb1.parusbackup@gmail.com", "Qq79FM9NbBJjcmf");
+            SmtpServer.EnableSsl = true;
+            SmtpServer.Send(mail);
         }
     }
 }

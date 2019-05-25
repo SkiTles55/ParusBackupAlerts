@@ -70,6 +70,12 @@
     <Compile Include="BackupWindow.Designer.cs">
       <DependentUpon>BackupWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmailInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmailInput.Designer.cs">
+      <DependentUpon>EmailInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,9 @@
     </Compile>
     <EmbeddedResource Include="BackupWindow.resx">
       <DependentUpon>BackupWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmailInput.resx">
+      <DependentUpon>EmailInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

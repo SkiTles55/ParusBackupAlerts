@@ -35,6 +35,7 @@ namespace ParusBackupAdmin
         public static ConfigReloader cfgreload;
         public static List<UserSession> activeusers;
         public static List<string> dirs;
+        public static List<string> emails;
 
         public class UserSession
         {
@@ -53,6 +54,8 @@ namespace ParusBackupAdmin
             checkTimer.Enabled = true;
             dirs = JsonConvert.DeserializeObject<List<string>>(Settings.Default.dirs);
             if (dirs == null) dirs = new List<string>();
+            emails = JsonConvert.DeserializeObject<List<string>>(Settings.Default.emails);
+            if (emails == null) emails = new List<string>();
             icon = new MyCustomApplicationContext();
             cfgreload = new ConfigReloader(Path.GetDirectoryName(cfgfile), Path.GetFileName(cfgfile));
             cfgreload.Run();
@@ -283,6 +286,6 @@ namespace ParusBackupAdmin
                         result = true;
                 }
             return result;
-        }
+        }        
     }
 }

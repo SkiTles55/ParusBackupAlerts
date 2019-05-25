@@ -14,7 +14,11 @@ namespace ParusBackupAdmin
             InitializeComponent();            
         }
 
-        private void WClose_Click(object sender, EventArgs e) => Close();
+        private void WClose_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(Path)) Program.dirs.Add(Path);
+            Close();
+        }
 
         private void dirOpen_Click(object sender, EventArgs e)
         {

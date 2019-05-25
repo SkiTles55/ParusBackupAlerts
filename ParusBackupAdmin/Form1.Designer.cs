@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.SavePathSet = new System.Windows.Forms.Button();
-            this.BackupSavePath = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.dirRemove = new System.Windows.Forms.Button();
             this.dirEdit = new System.Windows.Forms.Button();
@@ -63,6 +62,13 @@
             this.DayofWeakBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.RemoveEmail = new System.Windows.Forms.Button();
+            this.EditEmail = new System.Windows.Forms.Button();
+            this.AddEmail = new System.Windows.Forms.Button();
+            this.EmailList = new System.Windows.Forms.ListBox();
+            this.EmailCheckBox = new System.Windows.Forms.CheckBox();
+            this.BackupSavePath = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Interval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupDuration)).BeginInit();
@@ -71,6 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.BackupMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupHour)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -100,15 +107,6 @@
             this.SavePathSet.Text = "Обзор";
             this.SavePathSet.UseVisualStyleBackColor = true;
             this.SavePathSet.Click += new System.EventHandler(this.SavePathSet_Click);
-            // 
-            // BackupSavePath
-            // 
-            this.BackupSavePath.Location = new System.Drawing.Point(10, 264);
-            this.BackupSavePath.Name = "BackupSavePath";
-            this.BackupSavePath.ReadOnly = true;
-            this.BackupSavePath.Size = new System.Drawing.Size(255, 26);
-            this.BackupSavePath.TabIndex = 30;
-            this.BackupSavePath.Text = global::ParusBackupAdmin.Properties.Settings.Default.savepath;
             // 
             // label16
             // 
@@ -485,11 +483,91 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Настройки помощника";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.RemoveEmail);
+            this.groupBox3.Controls.Add(this.EmailCheckBox);
+            this.groupBox3.Controls.Add(this.EditEmail);
+            this.groupBox3.Controls.Add(this.EmailList);
+            this.groupBox3.Controls.Add(this.AddEmail);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox3.Location = new System.Drawing.Point(412, 324);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(415, 307);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Настройки оповещений";
+            // 
+            // RemoveEmail
+            // 
+            this.RemoveEmail.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_delete;
+            this.RemoveEmail.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.RemoveEmail.Location = new System.Drawing.Point(371, 130);
+            this.RemoveEmail.Name = "RemoveEmail";
+            this.RemoveEmail.Size = new System.Drawing.Size(30, 30);
+            this.RemoveEmail.TabIndex = 35;
+            this.RemoveEmail.UseVisualStyleBackColor = true;
+            this.RemoveEmail.Click += new System.EventHandler(this.RemoveEmail_Click);
+            // 
+            // EditEmail
+            // 
+            this.EditEmail.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_edit;
+            this.EditEmail.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.EditEmail.Location = new System.Drawing.Point(371, 96);
+            this.EditEmail.Name = "EditEmail";
+            this.EditEmail.Size = new System.Drawing.Size(30, 30);
+            this.EditEmail.TabIndex = 34;
+            this.EditEmail.UseVisualStyleBackColor = true;
+            this.EditEmail.Click += new System.EventHandler(this.EditEmail_Click);
+            // 
+            // AddEmail
+            // 
+            this.AddEmail.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_add;
+            this.AddEmail.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.AddEmail.Location = new System.Drawing.Point(371, 64);
+            this.AddEmail.Name = "AddEmail";
+            this.AddEmail.Size = new System.Drawing.Size(30, 30);
+            this.AddEmail.TabIndex = 33;
+            this.AddEmail.UseVisualStyleBackColor = true;
+            this.AddEmail.Click += new System.EventHandler(this.AddEmail_Click);
+            // 
+            // EmailList
+            // 
+            this.EmailList.FormattingEnabled = true;
+            this.EmailList.ItemHeight = 20;
+            this.EmailList.Location = new System.Drawing.Point(9, 64);
+            this.EmailList.Name = "EmailList";
+            this.EmailList.Size = new System.Drawing.Size(356, 164);
+            this.EmailList.TabIndex = 32;
+            // 
+            // EmailCheckBox
+            // 
+            this.EmailCheckBox.AutoSize = true;
+            this.EmailCheckBox.Checked = global::ParusBackupAdmin.Properties.Settings.Default.emailnotify;
+            this.EmailCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EmailCheckBox.Location = new System.Drawing.Point(9, 28);
+            this.EmailCheckBox.Name = "EmailCheckBox";
+            this.EmailCheckBox.Size = new System.Drawing.Size(263, 24);
+            this.EmailCheckBox.TabIndex = 0;
+            this.EmailCheckBox.Text = "Отправка оповещений на email";
+            this.EmailCheckBox.UseVisualStyleBackColor = true;
+            this.EmailCheckBox.CheckedChanged += new System.EventHandler(this.EmailCheckBox_CheckedChanged);
+            // 
+            // BackupSavePath
+            // 
+            this.BackupSavePath.Location = new System.Drawing.Point(10, 264);
+            this.BackupSavePath.Name = "BackupSavePath";
+            this.BackupSavePath.ReadOnly = true;
+            this.BackupSavePath.Size = new System.Drawing.Size(255, 26);
+            this.BackupSavePath.TabIndex = 30;
+            this.BackupSavePath.Text = global::ParusBackupAdmin.Properties.Settings.Default.savepath;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(839, 647);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -510,6 +588,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.BackupHour)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -550,6 +630,12 @@
         private System.Windows.Forms.TextBox BackupSavePath;
         private System.Windows.Forms.Button SavePathSet;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox EmailCheckBox;
+        private System.Windows.Forms.Button RemoveEmail;
+        private System.Windows.Forms.Button EditEmail;
+        private System.Windows.Forms.ListBox EmailList;
+        private System.Windows.Forms.Button AddEmail;
     }
 }
 
