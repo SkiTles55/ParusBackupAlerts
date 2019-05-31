@@ -32,6 +32,8 @@ namespace ParusBackupAdmin
             Alert1Box.AppendText(Program.alert1);
             Alert2Box.Clear();
             Alert2Box.AppendText(Program.alert2);
+            ePass.Text = Properties.Settings.Default.emailpass;
+            eLogin.Text = Properties.Settings.Default.emaillogin;
         }
 
         public Dictionary<string, string> GetSettings()
@@ -192,6 +194,25 @@ namespace ParusBackupAdmin
         {
             Properties.Settings.Default.emailnotify = EmailCheckBox.Checked;
             Properties.Settings.Default.Save();
+        }
+
+        private void eSave_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(eLogin.Text) || String.IsNullOrEmpty(ePass.Text)) return;
+            if (!eLogin.Text.Contains("@gmail.com"))
+            {
+                MessageBox.Show("Указан неправильный адрес электронной почты!");
+                return;
+            }
+            if (!String.IsNullOrEmpty(Properties.Settings.Default.emaillogin) || !String.IsNullOrEmpty(Properties.Settings.Default.emailpass))
+            {
+                DialogResult dialogResult = MessageBox.Show("Заменить учетную запись на " + eLogin.Text + "?", "Изменение учетных данных", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No) return;
+            }
+            Properties.Settings.Default.emaillogin = eLogin.Text;
+            Properties.Settings.Default.emailpass = ePass.Text;
+            Properties.Settings.Default.Save();
+            MessageBox.Show("Учетная запись почты сохранена!");
         }
     }
 }

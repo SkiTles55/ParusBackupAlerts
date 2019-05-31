@@ -106,5 +106,29 @@ namespace ParusBackupAdmin.Properties {
                 this["emails"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string emailpass {
+            get {
+                return ((string)(this["emailpass"]));
+            }
+            set {
+                this["emailpass"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string emaillogin {
+            get {
+                return ((string)(this["emaillogin"]));
+            }
+            set {
+                this["emaillogin"] = value;
+            }
+        }
     }
 }

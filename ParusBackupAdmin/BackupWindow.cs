@@ -187,12 +187,12 @@ namespace ParusBackupAdmin
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            mail.From = new MailAddress("ikb1.parusbackup@gmail.com", "Парус Бэкапы");
+            mail.From = new MailAddress(Properties.Settings.Default.emaillogin, "Парус Бэкапы");
             mail.To.Add(email);
             mail.Subject = "Бэкап базы Парус";
             mail.Body = text;
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new NetworkCredential("ikb1.parusbackup@gmail.com", "Qq79FM9NbBJjcmf");
+            SmtpServer.Credentials = new NetworkCredential(Properties.Settings.Default.emaillogin, Properties.Settings.Default.emailpass);
             SmtpServer.EnableSsl = true;
             SmtpServer.Send(mail);
         }

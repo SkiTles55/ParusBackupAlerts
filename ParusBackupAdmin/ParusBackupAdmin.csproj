@@ -144,6 +144,7 @@
     <Content Include="cfg.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\icons8-save-52.png" />
     <None Include="Resources\appbar.delete.png" />
     <None Include="Resources\appbar.edit.png" />
     <None Include="Resources\appbar.add.png" />

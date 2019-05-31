@@ -35,6 +35,15 @@ namespace ParusBackupAdmin
             }
             else
             {
+                try
+                {
+                    var eMailValidator = new System.Net.Mail.MailAddress(Email.Text);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Неверный адрес электронной почты!");
+                    return;
+                }
                 Program.emails.Add(Email.Text);
                 Close();
             }

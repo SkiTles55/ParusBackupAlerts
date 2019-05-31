@@ -63,10 +63,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.eSave = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.eLogin = new System.Windows.Forms.TextBox();
+            this.ePass = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.RemoveEmail = new System.Windows.Forms.Button();
             this.EditEmail = new System.Windows.Forms.Button();
-            this.AddEmail = new System.Windows.Forms.Button();
             this.EmailList = new System.Windows.Forms.ListBox();
+            this.AddEmail = new System.Windows.Forms.Button();
             this.EmailCheckBox = new System.Windows.Forms.CheckBox();
             this.BackupSavePath = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
@@ -485,6 +491,12 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.eSave);
+            this.groupBox3.Controls.Add(this.label19);
+            this.groupBox3.Controls.Add(this.label18);
+            this.groupBox3.Controls.Add(this.eLogin);
+            this.groupBox3.Controls.Add(this.ePass);
+            this.groupBox3.Controls.Add(this.label17);
             this.groupBox3.Controls.Add(this.RemoveEmail);
             this.groupBox3.Controls.Add(this.EmailCheckBox);
             this.groupBox3.Controls.Add(this.EditEmail);
@@ -497,6 +509,59 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Настройки оповещений";
+            // 
+            // eSave
+            // 
+            this.eSave.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.icons8_save_52;
+            this.eSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.eSave.Location = new System.Drawing.Point(371, 254);
+            this.eSave.Name = "eSave";
+            this.eSave.Size = new System.Drawing.Size(30, 30);
+            this.eSave.TabIndex = 32;
+            this.eSave.UseVisualStyleBackColor = true;
+            this.eSave.Click += new System.EventHandler(this.eSave_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(197, 229);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(67, 20);
+            this.label19.TabIndex = 41;
+            this.label19.Text = "Пароль";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 229);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(55, 20);
+            this.label18.TabIndex = 40;
+            this.label18.Text = "Логин";
+            // 
+            // eLogin
+            // 
+            this.eLogin.Location = new System.Drawing.Point(9, 256);
+            this.eLogin.Name = "eLogin";
+            this.eLogin.Size = new System.Drawing.Size(170, 26);
+            this.eLogin.TabIndex = 39;
+            // 
+            // ePass
+            // 
+            this.ePass.Location = new System.Drawing.Point(195, 256);
+            this.ePass.Name = "ePass";
+            this.ePass.PasswordChar = '*';
+            this.ePass.Size = new System.Drawing.Size(170, 26);
+            this.ePass.TabIndex = 38;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 199);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(289, 20);
+            this.label17.TabIndex = 36;
+            this.label17.Text = "Учетная запись почты (только gmail)";
             // 
             // RemoveEmail
             // 
@@ -520,6 +585,15 @@
             this.EditEmail.UseVisualStyleBackColor = true;
             this.EditEmail.Click += new System.EventHandler(this.EditEmail_Click);
             // 
+            // EmailList
+            // 
+            this.EmailList.FormattingEnabled = true;
+            this.EmailList.ItemHeight = 20;
+            this.EmailList.Location = new System.Drawing.Point(9, 64);
+            this.EmailList.Name = "EmailList";
+            this.EmailList.Size = new System.Drawing.Size(356, 124);
+            this.EmailList.TabIndex = 32;
+            // 
             // AddEmail
             // 
             this.AddEmail.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_add;
@@ -530,15 +604,6 @@
             this.AddEmail.TabIndex = 33;
             this.AddEmail.UseVisualStyleBackColor = true;
             this.AddEmail.Click += new System.EventHandler(this.AddEmail_Click);
-            // 
-            // EmailList
-            // 
-            this.EmailList.FormattingEnabled = true;
-            this.EmailList.ItemHeight = 20;
-            this.EmailList.Location = new System.Drawing.Point(9, 64);
-            this.EmailList.Name = "EmailList";
-            this.EmailList.Size = new System.Drawing.Size(356, 164);
-            this.EmailList.TabIndex = 32;
             // 
             // EmailCheckBox
             // 
@@ -636,6 +701,12 @@
         private System.Windows.Forms.Button EditEmail;
         private System.Windows.Forms.ListBox EmailList;
         private System.Windows.Forms.Button AddEmail;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox eLogin;
+        private System.Windows.Forms.TextBox ePass;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button eSave;
     }
 }
 
