@@ -168,7 +168,7 @@ namespace ParusBackupAdmin
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);
             LogOutput.AppendText(Environment.NewLine + "Архивация базы данных завершена. Затрачено времени:" + elapsedTime);
             ProgressLabel.Text = "Архивация базы данных завершена";
-            if (Properties.Settings.Default.emailnotify)
+            if (Properties.Settings.Default.emailnotify && !String.IsNullOrEmpty(Properties.Settings.Default.emaillogin) && !String.IsNullOrEmpty(Properties.Settings.Default.emailpass))
             {
                 foreach (var email in Program.emails)
                 {
