@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Security;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -32,6 +33,7 @@ namespace ParusBackupAdmin
         public static Form1 window;
         public static Users uwindow;
         public static BackupWindow bwindow;
+        //public static Backup2 bwindow;
         public static ConfigReloader cfgreload;
         public static List<UserSession> activeusers;
         public static List<string> dirs;
@@ -60,9 +62,9 @@ namespace ParusBackupAdmin
             cfgreload = new ConfigReloader(Path.GetDirectoryName(cfgfile), Path.GetFileName(cfgfile));
             cfgreload.Run();
             cfgreload.Load();
-            //backupTimer = new System.Timers.Timer(5000); //disabled for now
-            //backupTimer.Elapsed += CheckBackupTime;
-            //backupTimer.Enabled = true;
+            backupTimer = new System.Timers.Timer(5000); //disabled for now
+            backupTimer.Elapsed += CheckBackupTime;
+            backupTimer.Enabled = true;
             Application.Run(icon);
         }
 
@@ -242,8 +244,17 @@ namespace ParusBackupAdmin
             if (bwindow != null) return;
             if (DateTime.Now.DayOfWeek == backupDay && DateTime.Now.Hour == BackupHour && DateTime.Now.Minute == BackupMinute)
             {
-                bwindow = new BackupWindow();
-                Application.Run(bwindow); // бэкап запускается только один раз)
+                //bwindow = new BackupWindow();
+                //Application.Run(bwindow); // бэкап запускается только один раз)
+                //bwindow.Show();
+
+                Thread sf = new Thread(new ThreadStart(delegate {
+                    bwindow = new BackupWindow();
+                    bwindow.Show();
+                }));
+                sf.Start();
+                MessageBox.Show("ok");
+                //bwindow = new Backup2();
                 //bwindow.Show();
             }
         }
@@ -252,6 +263,8 @@ namespace ParusBackupAdmin
         {
             bwindow = new BackupWindow();
             bwindow.Show();
+            //bwindow = new Backup2();
+            //bwindow.Show();
         }
 
         static void StartHelper(string username)
