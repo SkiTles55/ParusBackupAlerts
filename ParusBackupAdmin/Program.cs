@@ -60,9 +60,9 @@ namespace ParusBackupAdmin
             cfgreload = new ConfigReloader(Path.GetDirectoryName(cfgfile), Path.GetFileName(cfgfile));
             cfgreload.Run();
             cfgreload.Load();
-            backupTimer = new System.Timers.Timer(5000);
-            backupTimer.Elapsed += CheckBackupTime;
-            backupTimer.Enabled = true;
+            //backupTimer = new System.Timers.Timer(5000); //disabled for now
+            //backupTimer.Elapsed += CheckBackupTime;
+            //backupTimer.Enabled = true;
             Application.Run(icon);
         }
 
@@ -72,7 +72,7 @@ namespace ParusBackupAdmin
             public ConfigReloader(string path, string filter)
             {
                 fsw = new FileSystemWatcher(path, filter);
-                fsw.Changed += new FileSystemEventHandler(fsw_Changed);
+                fsw.Changed += new FileSystemEventHandler(Fsw_Changed);
             }
             public void Run()
             {
@@ -108,7 +108,7 @@ namespace ParusBackupAdmin
                     fsw.EnableRaisingEvents = true;
                 }
             }
-            void fsw_Changed(object sender, FileSystemEventArgs e)
+            void Fsw_Changed(object sender, FileSystemEventArgs e)
             {
                 try
                 {
@@ -243,7 +243,8 @@ namespace ParusBackupAdmin
             if (DateTime.Now.DayOfWeek == backupDay && DateTime.Now.Hour == BackupHour && DateTime.Now.Minute == BackupMinute)
             {
                 bwindow = new BackupWindow();
-                Application.Run(bwindow);
+                Application.Run(bwindow); // бэкап запускается только один раз)
+                //bwindow.Show();
             }
         }
 

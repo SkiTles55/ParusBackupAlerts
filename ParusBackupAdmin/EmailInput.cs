@@ -41,7 +41,7 @@ namespace ParusBackupAdmin
                 }
                 catch (FormatException ex)
                 {
-                    MessageBox.Show("Неверный адрес электронной почты!");
+                    MessageBox.Show("Неверный адрес электронной почты!" + Environment.NewLine + ex.Message);
                     return;
                 }
                 Program.emails.Add(Email.Text);

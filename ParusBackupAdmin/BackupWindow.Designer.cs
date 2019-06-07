@@ -53,12 +53,12 @@
             this.LogOutput.TabIndex = 1;
             this.LogOutput.Text = "";
             // 
-            // CancelButton
+            // CancelB
             // 
             this.CancelB.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CancelB.Location = new System.Drawing.Point(619, 353);
-            this.CancelB.Name = "CancelButton";
+            this.CancelB.Name = "CancelB";
             this.CancelB.Size = new System.Drawing.Size(168, 33);
             this.CancelB.TabIndex = 2;
             this.CancelB.Text = "Отмена";
@@ -90,14 +90,14 @@
             // backgroundWorker1
             // 
             this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1_RunWorkerCompleted);
             // 
             // BackupWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 402);
+            this.ClientSize = new System.Drawing.Size(800, 438);
             this.ControlBox = false;
             this.Controls.Add(this.ProgressLabel);
             this.Controls.Add(this.AutoClose);

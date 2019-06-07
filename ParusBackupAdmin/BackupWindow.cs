@@ -75,7 +75,7 @@ namespace ParusBackupAdmin
             Properties.Settings.Default.Save();
         }
 
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BackgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -135,8 +135,10 @@ namespace ParusBackupAdmin
             FastZipEvents events = new FastZipEvents();
             ZipStrings.CodePage = 866;
             events.ProcessFile = ProcessFileMethod;
-            FastZip fastZip = new FastZip(events);
-            fastZip.CreateEmptyDirectories = true;
+            FastZip fastZip = new FastZip(events)
+            {
+                CreateEmptyDirectories = true
+            };
             datefolder = "ParusBackup " + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
             if (!Directory.Exists(Properties.Settings.Default.savepath + "\\" + datefolder))
                 Directory.CreateDirectory(Properties.Settings.Default.savepath + "\\" + datefolder);
@@ -162,7 +164,7 @@ namespace ParusBackupAdmin
             stopWatch.Stop();
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        private void BackgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             TimeSpan ts = stopWatch.Elapsed;
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);

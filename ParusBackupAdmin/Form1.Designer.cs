@@ -132,7 +132,7 @@
             this.dirRemove.Size = new System.Drawing.Size(30, 30);
             this.dirRemove.TabIndex = 28;
             this.dirRemove.UseVisualStyleBackColor = true;
-            this.dirRemove.Click += new System.EventHandler(this.dirRemove_Click);
+            this.dirRemove.Click += new System.EventHandler(this.DirRemove_Click);
             // 
             // dirEdit
             // 
@@ -143,7 +143,7 @@
             this.dirEdit.Size = new System.Drawing.Size(30, 30);
             this.dirEdit.TabIndex = 27;
             this.dirEdit.UseVisualStyleBackColor = true;
-            this.dirEdit.Click += new System.EventHandler(this.dirEdit_Click);
+            this.dirEdit.Click += new System.EventHandler(this.DirEdit_Click);
             // 
             // dirAdd
             // 
@@ -154,7 +154,7 @@
             this.dirAdd.Size = new System.Drawing.Size(30, 30);
             this.dirAdd.TabIndex = 26;
             this.dirAdd.UseVisualStyleBackColor = true;
-            this.dirAdd.Click += new System.EventHandler(this.dirAdd_Click);
+            this.dirAdd.Click += new System.EventHandler(this.DirAdd_Click);
             // 
             // dirsList
             // 
@@ -519,7 +519,7 @@
             this.eSave.Size = new System.Drawing.Size(30, 30);
             this.eSave.TabIndex = 32;
             this.eSave.UseVisualStyleBackColor = true;
-            this.eSave.Click += new System.EventHandler(this.eSave_Click);
+            this.eSave.Click += new System.EventHandler(this.ESave_Click);
             // 
             // label19
             // 

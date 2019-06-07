@@ -34,6 +34,7 @@ namespace ParusBackupAdmin
             Alert2Box.AppendText(Program.alert2);
             ePass.Text = Properties.Settings.Default.emailpass;
             eLogin.Text = Properties.Settings.Default.emaillogin;
+            EmailCheckBox.Checked = Properties.Settings.Default.emailnotify;
         }
 
         public Dictionary<string, string> GetSettings()
@@ -87,7 +88,7 @@ namespace ParusBackupAdmin
                 EmailList.Items.Add(email);
         }
 
-        private void dirAdd_Click(object sender, EventArgs e)
+        private void DirAdd_Click(object sender, EventArgs e)
         {
             InputWindow input = new InputWindow()
             {
@@ -115,7 +116,7 @@ namespace ParusBackupAdmin
             Properties.Settings.Default.Save();
         }
 
-        private void dirEdit_Click(object sender, EventArgs e)
+        private void DirEdit_Click(object sender, EventArgs e)
         {
             if (dirsList.SelectedItem == null) return;
             Program.dirs.Remove(dirsList.SelectedItem.ToString());
@@ -162,7 +163,7 @@ namespace ParusBackupAdmin
             }
         }
 
-        private void dirRemove_Click(object sender, EventArgs e)
+        private void DirRemove_Click(object sender, EventArgs e)
         {
             if (dirsList.SelectedItem == null) return;
             DialogResult dialogResult = MessageBox.Show(dirsList.SelectedItem.ToString(), "Вы точно хотите удалить эту папку из списка?", MessageBoxButtons.YesNo);
@@ -177,8 +178,10 @@ namespace ParusBackupAdmin
 
         private void SavePathSet_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
-            folderDlg.Description = "Выберите папку для сохранения бэкапов";
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog
+            {
+                Description = "Выберите папку для сохранения бэкапов"
+            };
             if (!String.IsNullOrEmpty(BackupSavePath.Text))
                 folderDlg.SelectedPath = BackupSavePath.Text;
             DialogResult result = folderDlg.ShowDialog();
@@ -196,7 +199,7 @@ namespace ParusBackupAdmin
             Properties.Settings.Default.Save();
         }
 
-        private void eSave_Click(object sender, EventArgs e)
+        private void ESave_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(eLogin.Text) || String.IsNullOrEmpty(ePass.Text)) return;
             if (!eLogin.Text.Contains("@gmail.com"))
