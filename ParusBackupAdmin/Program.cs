@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Security;
-using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -33,7 +33,6 @@ namespace ParusBackupAdmin
         public static Form1 window;
         public static Users uwindow;
         public static BackupWindow bwindow;
-        //public static Backup2 bwindow;
         public static ConfigReloader cfgreload;
         public static List<UserSession> activeusers;
         public static List<string> dirs;
@@ -62,7 +61,7 @@ namespace ParusBackupAdmin
             cfgreload = new ConfigReloader(Path.GetDirectoryName(cfgfile), Path.GetFileName(cfgfile));
             cfgreload.Run();
             cfgreload.Load();
-            backupTimer = new System.Timers.Timer(5000); //disabled for now
+            backupTimer = new System.Timers.Timer(5000);
             backupTimer.Elapsed += CheckBackupTime;
             backupTimer.Enabled = true;
             Application.Run(icon);
@@ -241,30 +240,19 @@ namespace ParusBackupAdmin
 
         static void CheckBackupTime(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (bwindow != null) return;
+            if (Application.OpenForms.OfType<BackupWindow>().Count() > 0) return;
             if (DateTime.Now.DayOfWeek == backupDay && DateTime.Now.Hour == BackupHour && DateTime.Now.Minute == BackupMinute)
             {
-                //bwindow = new BackupWindow();
-                //Application.Run(bwindow); // бэкап запускается только один раз)
-                //bwindow.Show();
-
-                Thread sf = new Thread(new ThreadStart(delegate {
-                    bwindow = new BackupWindow();
-                    bwindow.Show();
-                }));
-                sf.Start();
-                MessageBox.Show("ok");
-                //bwindow = new Backup2();
-                //bwindow.Show();
+                bwindow = new BackupWindow();
+                bwindow.ShowDialog();
             }
         }
 
         public static void StartBackup()
         {
+            if (Application.OpenForms.OfType<BackupWindow>().Count() > 0) return;
             bwindow = new BackupWindow();
             bwindow.Show();
-            //bwindow = new Backup2();
-            //bwindow.Show();
         }
 
         static void StartHelper(string username)
