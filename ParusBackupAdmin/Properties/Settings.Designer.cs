@@ -130,5 +130,17 @@ namespace ParusBackupAdmin.Properties {
                 this["emaillogin"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool backupauto {
+            get {
+                return ((bool)(this["backupauto"]));
+            }
+            set {
+                this["backupauto"] = value;
+            }
+        }
     }
 }

@@ -240,6 +240,7 @@ namespace ParusBackupAdmin
 
         static void CheckBackupTime(object sender, System.Timers.ElapsedEventArgs e)
         {
+            if (!Settings.Default.backupauto) return;
             if (Application.OpenForms.OfType<BackupWindow>().Count() > 0) return;
             if (DateTime.Now.DayOfWeek == backupDay && DateTime.Now.Hour == BackupHour && DateTime.Now.Minute == BackupMinute)
             {

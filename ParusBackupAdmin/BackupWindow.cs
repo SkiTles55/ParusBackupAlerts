@@ -62,7 +62,6 @@ namespace ParusBackupAdmin
                     backgroundWorker1.CancelAsync();
                     stoped = true;
                     LogOutput.AppendText(Environment.NewLine + "Создание бэкапа отменено");
-                    //CancelB.Text = "Закрыть";
                     if (Properties.Settings.Default.bWautoclose) Close();
                 }
             }
@@ -146,7 +145,8 @@ namespace ParusBackupAdmin
             {
                 try
                 {
-                    string zipFileName = Properties.Settings.Default.savepath + "\\" + datefolder + "\\" + path.Split('\\').Last() + ".zip";
+                    var dp = path.Split('\\');
+                    string zipFileName = Properties.Settings.Default.savepath + "\\" + datefolder + "\\" + ((dp.Count() >= 2) ? dp[dp.Count() - 2] + "." + dp[dp.Count() - 1] : dp.Last()) + ".zip";
                     fastZip.CreateZip(zipFileName, path, true, "");
                     BeginInvoke((Action)(() =>
                     {

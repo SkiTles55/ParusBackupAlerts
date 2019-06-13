@@ -35,6 +35,8 @@ namespace ParusBackupAdmin
             ePass.Text = Properties.Settings.Default.emailpass;
             eLogin.Text = Properties.Settings.Default.emaillogin;
             EmailCheckBox.Checked = Properties.Settings.Default.emailnotify;
+            BackupAutoRun.Checked = Properties.Settings.Default.backupauto;
+            BackupSavePath.Text = Properties.Settings.Default.savepath;
         }
 
         public Dictionary<string, string> GetSettings()
@@ -216,6 +218,12 @@ namespace ParusBackupAdmin
             Properties.Settings.Default.emailpass = ePass.Text;
             Properties.Settings.Default.Save();
             MessageBox.Show("Учетная запись почты сохранена!");
+        }
+
+        private void BackupAutoRun_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.backupauto = BackupAutoRun.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

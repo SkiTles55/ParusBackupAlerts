@@ -73,6 +73,7 @@
             this.EditEmail = new System.Windows.Forms.Button();
             this.EmailList = new System.Windows.Forms.ListBox();
             this.AddEmail = new System.Windows.Forms.Button();
+            this.BackupAutoRun = new System.Windows.Forms.CheckBox();
             this.EmailCheckBox = new System.Windows.Forms.CheckBox();
             this.BackupSavePath = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
@@ -88,6 +89,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BackupAutoRun);
             this.groupBox1.Controls.Add(this.SavePathSet);
             this.groupBox1.Controls.Add(this.BackupSavePath);
             this.groupBox1.Controls.Add(this.label16);
@@ -99,7 +101,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(411, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(416, 305);
+            this.groupBox1.Size = new System.Drawing.Size(416, 331);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки бэкапа";
@@ -503,9 +505,9 @@
             this.groupBox3.Controls.Add(this.EmailList);
             this.groupBox3.Controls.Add(this.AddEmail);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox3.Location = new System.Drawing.Point(412, 324);
+            this.groupBox3.Location = new System.Drawing.Point(412, 349);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(415, 307);
+            this.groupBox3.Size = new System.Drawing.Size(415, 282);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Настройки оповещений";
@@ -514,7 +516,7 @@
             // 
             this.eSave.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.icons8_save_52;
             this.eSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.eSave.Location = new System.Drawing.Point(371, 254);
+            this.eSave.Location = new System.Drawing.Point(370, 238);
             this.eSave.Name = "eSave";
             this.eSave.Size = new System.Drawing.Size(30, 30);
             this.eSave.TabIndex = 32;
@@ -524,7 +526,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(197, 229);
+            this.label19.Location = new System.Drawing.Point(196, 217);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(67, 20);
             this.label19.TabIndex = 41;
@@ -533,7 +535,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 229);
+            this.label18.Location = new System.Drawing.Point(5, 217);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(55, 20);
             this.label18.TabIndex = 40;
@@ -541,14 +543,14 @@
             // 
             // eLogin
             // 
-            this.eLogin.Location = new System.Drawing.Point(9, 256);
+            this.eLogin.Location = new System.Drawing.Point(8, 240);
             this.eLogin.Name = "eLogin";
             this.eLogin.Size = new System.Drawing.Size(170, 26);
             this.eLogin.TabIndex = 39;
             // 
             // ePass
             // 
-            this.ePass.Location = new System.Drawing.Point(195, 256);
+            this.ePass.Location = new System.Drawing.Point(194, 240);
             this.ePass.Name = "ePass";
             this.ePass.PasswordChar = '*';
             this.ePass.Size = new System.Drawing.Size(170, 26);
@@ -557,7 +559,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 199);
+            this.label17.Location = new System.Drawing.Point(5, 194);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(289, 20);
             this.label17.TabIndex = 36;
@@ -567,7 +569,7 @@
             // 
             this.RemoveEmail.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_delete;
             this.RemoveEmail.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RemoveEmail.Location = new System.Drawing.Point(371, 130);
+            this.RemoveEmail.Location = new System.Drawing.Point(371, 134);
             this.RemoveEmail.Name = "RemoveEmail";
             this.RemoveEmail.Size = new System.Drawing.Size(30, 30);
             this.RemoveEmail.TabIndex = 35;
@@ -578,7 +580,7 @@
             // 
             this.EditEmail.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_edit;
             this.EditEmail.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.EditEmail.Location = new System.Drawing.Point(371, 96);
+            this.EditEmail.Location = new System.Drawing.Point(371, 98);
             this.EditEmail.Name = "EditEmail";
             this.EditEmail.Size = new System.Drawing.Size(30, 30);
             this.EditEmail.TabIndex = 34;
@@ -589,7 +591,7 @@
             // 
             this.EmailList.FormattingEnabled = true;
             this.EmailList.ItemHeight = 20;
-            this.EmailList.Location = new System.Drawing.Point(9, 64);
+            this.EmailList.Location = new System.Drawing.Point(6, 62);
             this.EmailList.Name = "EmailList";
             this.EmailList.Size = new System.Drawing.Size(356, 124);
             this.EmailList.TabIndex = 32;
@@ -598,19 +600,30 @@
             // 
             this.AddEmail.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_add;
             this.AddEmail.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.AddEmail.Location = new System.Drawing.Point(371, 64);
+            this.AddEmail.Location = new System.Drawing.Point(371, 62);
             this.AddEmail.Name = "AddEmail";
             this.AddEmail.Size = new System.Drawing.Size(30, 30);
             this.AddEmail.TabIndex = 33;
             this.AddEmail.UseVisualStyleBackColor = true;
             this.AddEmail.Click += new System.EventHandler(this.AddEmail_Click);
             // 
+            // BackupAutoRun
+            // 
+            this.BackupAutoRun.AutoSize = true;
+            this.BackupAutoRun.Location = new System.Drawing.Point(10, 297);
+            this.BackupAutoRun.Name = "BackupAutoRun";
+            this.BackupAutoRun.Size = new System.Drawing.Size(266, 24);
+            this.BackupAutoRun.TabIndex = 32;
+            this.BackupAutoRun.Text = "Автоматический запуск бэкапа";
+            this.BackupAutoRun.UseVisualStyleBackColor = true;
+            this.BackupAutoRun.CheckedChanged += new System.EventHandler(this.BackupAutoRun_CheckedChanged);
+            // 
             // EmailCheckBox
             // 
             this.EmailCheckBox.AutoSize = true;
-            this.EmailCheckBox.Checked = global::ParusBackupAdmin.Properties.Settings.Default.emailnotify;
+            this.EmailCheckBox.Checked = true;
             this.EmailCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.EmailCheckBox.Location = new System.Drawing.Point(9, 28);
+            this.EmailCheckBox.Location = new System.Drawing.Point(9, 25);
             this.EmailCheckBox.Name = "EmailCheckBox";
             this.EmailCheckBox.Size = new System.Drawing.Size(263, 24);
             this.EmailCheckBox.TabIndex = 0;
@@ -625,7 +638,6 @@
             this.BackupSavePath.ReadOnly = true;
             this.BackupSavePath.Size = new System.Drawing.Size(255, 26);
             this.BackupSavePath.TabIndex = 30;
-            this.BackupSavePath.Text = global::ParusBackupAdmin.Properties.Settings.Default.savepath;
             // 
             // Form1
             // 
@@ -707,6 +719,7 @@
         private System.Windows.Forms.TextBox ePass;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button eSave;
+        private System.Windows.Forms.CheckBox BackupAutoRun;
     }
 }
 
