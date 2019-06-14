@@ -221,7 +221,7 @@ namespace ParusBackupAdmin
                         if (!helper && Settings.Default.autohelper_checkbox)
                         {
                             StartHelper(session.UserName);
-                            helper = HelperRunned(session.GetProcesses());
+                            helper = true;
                         }
                         activeusers.Add(new UserSession
                         {
