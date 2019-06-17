@@ -37,6 +37,7 @@ namespace ParusBackupAdmin
         public static List<UserSession> activeusers;
         public static List<string> dirs;
         public static List<string> emails;
+        public static ITerminalServer server;
 
         public class UserSession
         {
@@ -209,25 +210,23 @@ namespace ParusBackupAdmin
         {
             activeusers.Clear();
             ITerminalServicesManager manager = new TerminalServicesManager();
-            using (ITerminalServer server = manager.GetLocalServer())
+            server = manager.GetLocalServer();
+            server.Open();
+            foreach (var session in server.GetSessions())
             {
-                server.Open();
-                foreach (var session in server.GetSessions())
+                var processes = session.GetProcesses();
+                if (ParusRunned(processes))
                 {
-                    var processes = session.GetProcesses();                    
-                    if (ParusRunned(processes))
+                    var helper = HelperRunned(processes);
+                    activeusers.Add(new UserSession
                     {
-                        var helper = HelperRunned(processes);
-                        if (!helper && Settings.Default.autohelper_checkbox)
-                        {
-                            StartHelper(session.UserName);
-                            helper = true;
-                        }
-                        activeusers.Add(new UserSession
-                        {
-                            session = session,
-                            HelperStarted = helper
-                        });   
+                        session = session,
+                        HelperStarted = helper
+                    });
+                    if (!helper && Settings.Default.autohelper_checkbox)
+                    {
+                        StartHelper(session.UserName);
+                        helper = true;
                     }
                 }
             }
@@ -281,14 +280,19 @@ namespace ParusBackupAdmin
         {
             bool result = false;
             foreach (var l in list)
-                if (l.ProcessName.ToLower() == "parusbackupalerts.exe")
-                {
-                    if (!l.UnderlyingProcess.Responding)
-                        l.Kill();
-                    else
-                        result = true;
-                }
+                if (l.ProcessName.ToLower() == "parusbackupalerts.exe") result = true;
             return result;
-        }        
+        }
+        
+        public static void KillParus()
+        {
+            if (server == null) return;
+            foreach (var session in server.GetSessions())
+            {
+                var processes = session.GetProcesses().Where(x => x.ProcessName.ToLower() == "parusbackupalerts.exe");
+                foreach (var pr in processes)
+                    pr.Kill();
+            }
+        }
     }
 }

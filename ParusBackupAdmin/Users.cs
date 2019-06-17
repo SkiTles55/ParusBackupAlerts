@@ -39,12 +39,7 @@ namespace ParusBackupAdmin
 
         private void HelperClose_Click(object sender, EventArgs e)
         {
-            foreach (var user in Program.activeusers)
-            {
-                var processes = user.session.GetProcesses().Where(x => x.ProcessName.ToLower() == "parusbackupalerts.exe");
-                foreach (var pr in processes)
-                    pr.Kill();
-            }
+            Program.KillParus();
             Program.activeusers.Clear();
             RefreshRows();
         }
