@@ -30,12 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Users));
             this.UsersListView = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.interval_check_p = new System.Windows.Forms.NumericUpDown();
-            this.HelperAutoRun = new System.Windows.Forms.CheckBox();
             this.sID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.helper_runned = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.interval_check_p = new System.Windows.Forms.NumericUpDown();
+            this.HelperAutoRun = new System.Windows.Forms.CheckBox();
             this.HelperClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.UsersListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.interval_check_p)).BeginInit();
@@ -56,6 +56,24 @@
             this.UsersListView.RowHeadersVisible = false;
             this.UsersListView.Size = new System.Drawing.Size(483, 330);
             this.UsersListView.TabIndex = 0;
+            // 
+            // sID
+            // 
+            this.sID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.sID.HeaderText = "ID";
+            this.sID.Name = "sID";
+            // 
+            // sName
+            // 
+            this.sName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.sName.HeaderText = "Пользователь";
+            this.sName.Name = "sName";
+            // 
+            // helper_runned
+            // 
+            this.helper_runned.HeaderText = "Помощник";
+            this.helper_runned.Name = "helper_runned";
+            this.helper_runned.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // label1
             // 
@@ -88,25 +106,8 @@
             this.HelperAutoRun.Text = "Автоматический запуск помощника";
             this.HelperAutoRun.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.HelperAutoRun.UseVisualStyleBackColor = true;
+            this.HelperAutoRun.CheckedChanged += new System.EventHandler(this.HelperAutoRun_CheckedChanged);
             this.HelperAutoRun.CheckStateChanged += new System.EventHandler(this.HelperAutoRun_CheckStateChanged);
-            // 
-            // sID
-            // 
-            this.sID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.sID.HeaderText = "ID";
-            this.sID.Name = "sID";
-            // 
-            // sName
-            // 
-            this.sName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.sName.HeaderText = "Пользователь";
-            this.sName.Name = "sName";
-            // 
-            // helper_runned
-            // 
-            this.helper_runned.HeaderText = "Помощник";
-            this.helper_runned.Name = "helper_runned";
-            this.helper_runned.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // HelperClose
             // 

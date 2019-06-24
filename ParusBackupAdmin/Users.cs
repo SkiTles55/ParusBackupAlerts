@@ -43,5 +43,11 @@ namespace ParusBackupAdmin
             Program.activeusers.Clear();
             RefreshRows();
         }
+
+        private void HelperAutoRun_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.autohelper_checkbox = HelperAutoRun.Checked;
+            Properties.Settings.Default.Save();
+        }
     }
 }
