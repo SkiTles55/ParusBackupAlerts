@@ -39,7 +39,7 @@ namespace ParusBackupAdmin
 
         private void HelperClose_Click(object sender, EventArgs e)
         {
-            Program.KillParus();
+            //Program.KillParus();
             Program.activeusers.Clear();
             RefreshRows();
         }
