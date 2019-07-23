@@ -37,7 +37,7 @@ namespace ParusBackupAdmin
         public static List<UserSession> activeusers;
         public static List<string> dirs;
         public static List<string> emails;
-        //public static ITerminalServer server;
+        public static Dictionary<int, int> Helpers = new Dictionary<int, int>();
 
         public class UserSession
         {
@@ -50,6 +50,7 @@ namespace ParusBackupAdmin
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            KillAllHelpers();
             activeusers = new List<UserSession>();
             checkTimer = new System.Timers.Timer(Settings.Default.check_interval * 10000);
             checkTimer.Elapsed += UpdateUsers;
@@ -210,60 +211,32 @@ namespace ParusBackupAdmin
         {
             activeusers.Clear();
             ITerminalServicesManager manager = new TerminalServicesManager();
-            ITerminalServer server2 = manager.GetLocalServer();
-            server2.Open();
-            foreach (var session in server2.GetSessions())
+            using (ITerminalServer server = manager.GetLocalServer())
             {
-                var processes = session.GetProcesses();
-                if (ParusRunned(processes))
+                server.Open();
+                foreach (ITerminalServicesSession session in server.GetSessions())
                 {
-                    bool helper = processes.Where(x => x.UnderlyingProcess.ProcessName.ToLower() == "parusbackupalerts.exe").Count() > 0;
-                    if (!helper && Settings.Default.autohelper_checkbox)
+                    var processes = session.GetProcesses();
+                    if (ParusRunned(processes))
                     {
-                        StartHelper(session.UserName);
-                        helper = true;
-                    }
-                    activeusers.Add(new UserSession
-                    {
-                        session = session,
-                        HelperStarted = helper
-                    });
-                    /*
-                    if (processes.Where(x => x.ProcessName.ToLower() == "parusbackupalerts.exe").Count() > 0)
-                    {
+                        bool helper = HelperRunned(session.SessionId);
+                        if (!helper && Settings.Default.autohelper_checkbox)
+                        {
+                            StartHelper(session);
+                            helper = true;
+                        }
                         activeusers.Add(new UserSession
                         {
                             session = session,
-                            HelperStarted = true
+                            HelperStarted = helper
                         });
                     }
-                    else
-                    {
-                        //if (Settings.Default.autohelper_checkbox) StartHelper(session.UserName);
-                        activeusers.Add(new UserSession
-                        {
-                            session = session,
-                            HelperStarted = false
-                        });
-                    }
-                    */
                 }
-            }
-            /*
-            if (Settings.Default.autohelper_checkbox)
-            {
-                foreach (var us in activeusers)
-                    if (!us.HelperStarted)
-                    {
-                        StartHelper(us.session.UserName);
-                        us.HelperStarted = true;
-                    }
-            }
-            */
-            if (uwindow != null)
-            {
-                try { uwindow.UpdateList(); }
-                catch { }
+                if (uwindow != null)
+                {
+                    try { uwindow.UpdateList(); }
+                    catch { }
+                }                
             }
         }
 
@@ -284,18 +257,25 @@ namespace ParusBackupAdmin
             bwindow = new BackupWindow();
             bwindow.Show();
         }
-
-        static void StartHelper(string username)
+        
+        static void StartHelper(ITerminalServicesSession session)
         {
-            SecureString password = new SecureString();
-            foreach (var ch in "456Яяя789")
-                password.AppendChar(ch);
-            Process process = new Process();
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.FileName = Application.StartupPath + "\\ParusBackupAlerts.exe";
-            process.StartInfo.UserName = username;
-            process.StartInfo.Password = password;
-            process.Start();
+            try
+            {
+                using (Process process = new Process())
+                {
+                    SecureString password = new SecureString();
+                    foreach (var ch in "456Яяя789")
+                        password.AppendChar(ch);
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.FileName = Application.StartupPath + "\\ParusBackupAlerts.exe";
+                    process.StartInfo.UserName = session.UserName;
+                    process.StartInfo.Password = password;
+                    process.Start();
+                    Helpers.Add(process.Id, session.SessionId);
+                }                
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         public static bool ParusRunned(IList<ITerminalServicesProcess> list)
@@ -306,23 +286,34 @@ namespace ParusBackupAdmin
             return result;
         }
 
-        static bool HelperRunned(ITerminalServicesSession session)
+        public static bool HelperRunned(int sesid)
         {
-            var processes = session.GetProcesses().Where(x => x.ProcessName.ToLower() == "parusbackupalerts.exe");
-            return processes.Count() > 0;
-        }
-        
-        /*
-        public static void KillParus()
-        {
-            if (server == null) return;
-            foreach (var session in server.GetSessions())
+            bool result = false;
+            var pr = Process.GetProcessesByName("ParusBackupAlerts");
+            foreach (var p in pr)
             {
-                var processes = session.GetProcesses().Where(x => x.ProcessName.ToLower() == "parusbackupalerts.exe");
-                foreach (var pr in processes)
-                    pr.Kill();
+                if (Helpers.ContainsKey(p.Id) && Helpers[p.Id] == sesid) result = true;
+            }
+            return result;
+        }
+
+        public static void KillAllHelpers()
+        {
+            ITerminalServicesManager manager = new TerminalServicesManager();
+            using (ITerminalServer server = manager.GetLocalServer())
+            {
+                server.Open();
+                foreach (ITerminalServicesSession session in server.GetSessions())
+                {
+                    var processes = session.GetProcesses().Where(x => x.ProcessName.ToLower() == "parusbackupalerts.exe");
+                    foreach (var pr in processes)
+                    {
+                        if (Helpers.ContainsKey(pr.ProcessId)) Helpers.Remove(pr.ProcessId);
+                        pr.Kill();
+                    }
+                }
             }
         }
-        */
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ParusBackupAdmin
@@ -39,7 +38,7 @@ namespace ParusBackupAdmin
 
         private void HelperClose_Click(object sender, EventArgs e)
         {
-            //Program.KillParus();
+            Program.KillAllHelpers();
             Program.activeusers.Clear();
             RefreshRows();
         }
