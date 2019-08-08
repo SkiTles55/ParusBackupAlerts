@@ -30,7 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BackupAutoRun = new System.Windows.Forms.CheckBox();
             this.SavePathSet = new System.Windows.Forms.Button();
+            this.BackupSavePath = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.dirRemove = new System.Windows.Forms.Button();
             this.dirEdit = new System.Windows.Forms.Button();
@@ -40,15 +42,11 @@
             this.label14 = new System.Windows.Forms.Label();
             this.Interval = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
-            this.Save_button = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.Alert2Box = new System.Windows.Forms.RichTextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.Alert1Box = new System.Windows.Forms.RichTextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.BackupDuration = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.AlertInterval = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -70,15 +68,12 @@
             this.ePass = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.RemoveEmail = new System.Windows.Forms.Button();
+            this.EmailCheckBox = new System.Windows.Forms.CheckBox();
             this.EditEmail = new System.Windows.Forms.Button();
             this.EmailList = new System.Windows.Forms.ListBox();
             this.AddEmail = new System.Windows.Forms.Button();
-            this.BackupAutoRun = new System.Windows.Forms.CheckBox();
-            this.EmailCheckBox = new System.Windows.Forms.CheckBox();
-            this.BackupSavePath = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Interval)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BackupDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StartCheck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupMinutes)).BeginInit();
@@ -106,6 +101,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки бэкапа";
             // 
+            // BackupAutoRun
+            // 
+            this.BackupAutoRun.AutoSize = true;
+            this.BackupAutoRun.Location = new System.Drawing.Point(10, 297);
+            this.BackupAutoRun.Name = "BackupAutoRun";
+            this.BackupAutoRun.Size = new System.Drawing.Size(266, 24);
+            this.BackupAutoRun.TabIndex = 32;
+            this.BackupAutoRun.Text = "Автоматический запуск бэкапа";
+            this.BackupAutoRun.UseVisualStyleBackColor = true;
+            this.BackupAutoRun.CheckedChanged += new System.EventHandler(this.BackupAutoRun_CheckedChanged);
+            // 
             // SavePathSet
             // 
             this.SavePathSet.Location = new System.Drawing.Point(272, 262);
@@ -115,6 +121,14 @@
             this.SavePathSet.Text = "Обзор";
             this.SavePathSet.UseVisualStyleBackColor = true;
             this.SavePathSet.Click += new System.EventHandler(this.SavePathSet_Click);
+            // 
+            // BackupSavePath
+            // 
+            this.BackupSavePath.Location = new System.Drawing.Point(10, 264);
+            this.BackupSavePath.Name = "BackupSavePath";
+            this.BackupSavePath.ReadOnly = true;
+            this.BackupSavePath.Size = new System.Drawing.Size(255, 26);
+            this.BackupSavePath.TabIndex = 30;
             // 
             // label16
             // 
@@ -206,6 +220,7 @@
             0,
             0,
             0});
+            this.Interval.ValueChanged += new System.EventHandler(this.Interval_ValueChanged);
             // 
             // label13
             // 
@@ -216,20 +231,10 @@
             this.label13.TabIndex = 21;
             this.label13.Text = "Интервал проверки";
             // 
-            // Save_button
-            // 
-            this.Save_button.Location = new System.Drawing.Point(10, 564);
-            this.Save_button.Name = "Save_button";
-            this.Save_button.Size = new System.Drawing.Size(372, 35);
-            this.Save_button.TabIndex = 20;
-            this.Save_button.Text = "Сохранить";
-            this.Save_button.UseVisualStyleBackColor = true;
-            this.Save_button.Click += new System.EventHandler(this.Save_button_Click);
-            // 
             // label12
             // 
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(10, 511);
+            this.label12.Location = new System.Drawing.Point(7, 534);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(370, 39);
             this.label12.TabIndex = 19;
@@ -237,16 +242,17 @@
             // 
             // Alert2Box
             // 
-            this.Alert2Box.Location = new System.Drawing.Point(10, 399);
+            this.Alert2Box.Location = new System.Drawing.Point(6, 418);
             this.Alert2Box.Name = "Alert2Box";
             this.Alert2Box.Size = new System.Drawing.Size(372, 105);
             this.Alert2Box.TabIndex = 18;
             this.Alert2Box.Text = "";
+            this.Alert2Box.TextChanged += new System.EventHandler(this.Alert2Box_TextChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 376);
+            this.label11.Location = new System.Drawing.Point(6, 395);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(292, 20);
             this.label11.TabIndex = 17;
@@ -254,60 +260,21 @@
             // 
             // Alert1Box
             // 
-            this.Alert1Box.Location = new System.Drawing.Point(10, 259);
+            this.Alert1Box.Location = new System.Drawing.Point(6, 264);
             this.Alert1Box.Name = "Alert1Box";
-            this.Alert1Box.Size = new System.Drawing.Size(372, 105);
+            this.Alert1Box.Size = new System.Drawing.Size(372, 128);
             this.Alert1Box.TabIndex = 16;
             this.Alert1Box.Text = "";
+            this.Alert1Box.TextChanged += new System.EventHandler(this.Alert1Box_TextChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 235);
+            this.label10.Location = new System.Drawing.Point(6, 240);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(292, 20);
             this.label10.TabIndex = 15;
             this.label10.Text = "Оповещение о предстоящем бэкапе*";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(326, 199);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(54, 20);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "минут";
-            // 
-            // BackupDuration
-            // 
-            this.BackupDuration.Location = new System.Drawing.Point(270, 197);
-            this.BackupDuration.Maximum = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            this.BackupDuration.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.BackupDuration.Name = "BackupDuration";
-            this.BackupDuration.Size = new System.Drawing.Size(46, 26);
-            this.BackupDuration.TabIndex = 13;
-            this.BackupDuration.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 199);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(178, 20);
-            this.label9.TabIndex = 12;
-            this.label9.Text = "Длительность бэкапа";
             // 
             // label7
             // 
@@ -339,6 +306,7 @@
             0,
             0,
             0});
+            this.AlertInterval.ValueChanged += new System.EventHandler(this.AlertInterval_ValueChanged);
             // 
             // label6
             // 
@@ -379,6 +347,7 @@
             0,
             0,
             0});
+            this.StartCheck.ValueChanged += new System.EventHandler(this.StartCheck_ValueChanged);
             // 
             // label4
             // 
@@ -400,6 +369,7 @@
             this.BackupMinutes.Name = "BackupMinutes";
             this.BackupMinutes.Size = new System.Drawing.Size(46, 26);
             this.BackupMinutes.TabIndex = 5;
+            this.BackupMinutes.ValueChanged += new System.EventHandler(this.BackupMinutes_ValueChanged);
             // 
             // label3
             // 
@@ -422,6 +392,7 @@
             this.BackupHour.Name = "BackupHour";
             this.BackupHour.Size = new System.Drawing.Size(46, 26);
             this.BackupHour.TabIndex = 3;
+            this.BackupHour.ValueChanged += new System.EventHandler(this.BackupHour_ValueChanged);
             // 
             // label2
             // 
@@ -447,6 +418,7 @@
             this.DayofWeakBox.Name = "DayofWeakBox";
             this.DayofWeakBox.Size = new System.Drawing.Size(183, 28);
             this.DayofWeakBox.TabIndex = 1;
+            this.DayofWeakBox.SelectedIndexChanged += new System.EventHandler(this.DayofWeakBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -473,14 +445,10 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.AlertInterval);
-            this.groupBox2.Controls.Add(this.Save_button);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.Alert2Box);
-            this.groupBox2.Controls.Add(this.BackupDuration);
             this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.Alert1Box);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -576,6 +544,19 @@
             this.RemoveEmail.UseVisualStyleBackColor = true;
             this.RemoveEmail.Click += new System.EventHandler(this.RemoveEmail_Click);
             // 
+            // EmailCheckBox
+            // 
+            this.EmailCheckBox.AutoSize = true;
+            this.EmailCheckBox.Checked = true;
+            this.EmailCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EmailCheckBox.Location = new System.Drawing.Point(9, 25);
+            this.EmailCheckBox.Name = "EmailCheckBox";
+            this.EmailCheckBox.Size = new System.Drawing.Size(263, 24);
+            this.EmailCheckBox.TabIndex = 0;
+            this.EmailCheckBox.Text = "Отправка оповещений на email";
+            this.EmailCheckBox.UseVisualStyleBackColor = true;
+            this.EmailCheckBox.CheckedChanged += new System.EventHandler(this.EmailCheckBox_CheckedChanged);
+            // 
             // EditEmail
             // 
             this.EditEmail.BackgroundImage = global::ParusBackupAdmin.Properties.Resources.appbar_edit;
@@ -607,38 +588,6 @@
             this.AddEmail.UseVisualStyleBackColor = true;
             this.AddEmail.Click += new System.EventHandler(this.AddEmail_Click);
             // 
-            // BackupAutoRun
-            // 
-            this.BackupAutoRun.AutoSize = true;
-            this.BackupAutoRun.Location = new System.Drawing.Point(10, 297);
-            this.BackupAutoRun.Name = "BackupAutoRun";
-            this.BackupAutoRun.Size = new System.Drawing.Size(266, 24);
-            this.BackupAutoRun.TabIndex = 32;
-            this.BackupAutoRun.Text = "Автоматический запуск бэкапа";
-            this.BackupAutoRun.UseVisualStyleBackColor = true;
-            this.BackupAutoRun.CheckedChanged += new System.EventHandler(this.BackupAutoRun_CheckedChanged);
-            // 
-            // EmailCheckBox
-            // 
-            this.EmailCheckBox.AutoSize = true;
-            this.EmailCheckBox.Checked = true;
-            this.EmailCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.EmailCheckBox.Location = new System.Drawing.Point(9, 25);
-            this.EmailCheckBox.Name = "EmailCheckBox";
-            this.EmailCheckBox.Size = new System.Drawing.Size(263, 24);
-            this.EmailCheckBox.TabIndex = 0;
-            this.EmailCheckBox.Text = "Отправка оповещений на email";
-            this.EmailCheckBox.UseVisualStyleBackColor = true;
-            this.EmailCheckBox.CheckedChanged += new System.EventHandler(this.EmailCheckBox_CheckedChanged);
-            // 
-            // BackupSavePath
-            // 
-            this.BackupSavePath.Location = new System.Drawing.Point(10, 264);
-            this.BackupSavePath.Name = "BackupSavePath";
-            this.BackupSavePath.ReadOnly = true;
-            this.BackupSavePath.Size = new System.Drawing.Size(255, 26);
-            this.BackupSavePath.TabIndex = 30;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -653,12 +602,10 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Парус Бэкап Помощник";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Interval)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BackupDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StartCheck)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackupMinutes)).EndInit();
@@ -686,15 +633,11 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown AlertInterval;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown BackupDuration;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.RichTextBox Alert1Box;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.RichTextBox Alert2Box;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button Save_button;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown Interval;
         private System.Windows.Forms.Label label13;

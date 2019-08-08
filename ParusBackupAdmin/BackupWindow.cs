@@ -177,7 +177,8 @@ namespace ParusBackupAdmin
                     try { SendEmail("Архивация базы данных завершена" + Environment.NewLine + "Лог:" + Environment.NewLine + LogOutput.Text, email); }
                     catch (Exception ex) { LogOutput.AppendText(Environment.NewLine + $"Ошибка отправка оповещения на адрес {email}: " + ex.Message); }
                 }
-            }            
+            }
+            if (!Program.FinishedBackups.Contains(Program.backupTime)) Program.FinishedBackups.Add(Program.backupTime);
             TextWriter writer = new StreamWriter(Properties.Settings.Default.savepath + "\\" + datefolder + "\\Log.txt");
             writer.Write(LogOutput.Text);
             writer.Close();

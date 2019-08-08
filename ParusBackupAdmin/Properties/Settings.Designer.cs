@@ -142,5 +142,101 @@ namespace ParusBackupAdmin.Properties {
                 this["backupauto"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int backupday {
+            get {
+                return ((int)(this["backupday"]));
+            }
+            set {
+                this["backupday"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal backuphour {
+            get {
+                return ((decimal)(this["backuphour"]));
+            }
+            set {
+                this["backuphour"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal backupminute {
+            get {
+                return ((decimal)(this["backupminute"]));
+            }
+            set {
+                this["backupminute"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal interval {
+            get {
+                return ((decimal)(this["interval"]));
+            }
+            set {
+                this["interval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal startcheck {
+            get {
+                return ((decimal)(this["startcheck"]));
+            }
+            set {
+                this["startcheck"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public decimal alert_interval {
+            get {
+                return ((decimal)(this["alert_interval"]));
+            }
+            set {
+                this["alert_interval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Необходимо закрыть Парус к {time} для создания бэкапа база данных.")]
+        public string alert1box {
+            get {
+                return ((string)(this["alert1box"]));
+            }
+            set {
+                this["alert1box"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Производится бэкап базы данных. Нельзя запускать Парус до {time}")]
+        public string alert2box {
+            get {
+                return ((string)(this["alert2box"]));
+            }
+            set {
+                this["alert2box"] = value;
+            }
+        }
     }
 }

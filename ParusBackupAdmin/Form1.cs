@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ParusBackupAdmin
@@ -21,59 +20,21 @@ namespace ParusBackupAdmin
 
         public void UpdateSettings()
         {
-            DayofWeakBox.SelectedIndex = (int)Program.backupDay;
-            BackupHour.Value = Program.BackupHour;
-            BackupMinutes.Value = Program.BackupMinute;
-            StartCheck.Value = Program.start_check;
-            Interval.Value = Program.interval;
-            AlertInterval.Value = Program.alert_interval;
-            BackupDuration.Value = Program.backup_duration;
+            DayofWeakBox.SelectedIndex = Properties.Settings.Default.backupday;
+            BackupHour.Value = Properties.Settings.Default.backuphour;
+            BackupMinutes.Value = Properties.Settings.Default.backupminute;
+            StartCheck.Value = Properties.Settings.Default.startcheck;
+            Interval.Value = Properties.Settings.Default.interval;
+            AlertInterval.Value = Properties.Settings.Default.alert_interval;
             Alert1Box.Clear();
-            Alert1Box.AppendText(Program.alert1);
+            Alert1Box.AppendText(Properties.Settings.Default.alert1box);
             Alert2Box.Clear();
-            Alert2Box.AppendText(Program.alert2);
+            Alert2Box.AppendText(Properties.Settings.Default.alert2box);
             ePass.Text = Properties.Settings.Default.emailpass;
             eLogin.Text = Properties.Settings.Default.emaillogin;
             EmailCheckBox.Checked = Properties.Settings.Default.emailnotify;
             BackupAutoRun.Checked = Properties.Settings.Default.backupauto;
             BackupSavePath.Text = Properties.Settings.Default.savepath;
-        }
-
-        public Dictionary<string, string> GetSettings()
-        {
-            return new Dictionary<string, string>()
-            {
-                ["backup_hour"] = BackupHour.Value.ToString(),
-                ["backup_minute"] = BackupMinutes.Value.ToString(),
-                ["backup_day"] = DayofWeakBox.SelectedIndex.ToString(),
-                ["alert1"] = Alert1Box.Text,
-                ["alert2"] = Alert2Box.Text,
-                ["backup_duration"] = BackupDuration.Value.ToString(),
-                ["start_check"] = StartCheck.Value.ToString(),
-                ["interval"] = Interval.Value.ToString(),
-                ["alert_interval"] = AlertInterval.Value.ToString()
-            };
-        }
-
-        private void Save_button_Click(object sender, EventArgs e)
-        {
-            Program.cfgreload.Save();
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (DayofWeakBox.SelectedIndex != (int)Program.backupDay || BackupHour.Value != Program.BackupHour ||
-                BackupMinutes.Value != Program.BackupMinute || StartCheck.Value != Program.start_check ||
-                Interval.Value != Program.interval || AlertInterval.Value != Program.alert_interval ||
-                BackupDuration.Value != Program.backup_duration || Alert1Box.Text != Program.alert1 || Alert2Box.Text != Program.alert2)
-            {
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                DialogResult result = MessageBox.Show("Имеются несохраненные изменения" + Environment.NewLine + "Сохранить настройки перед выходом?", "Сохранение настроек", buttons);
-                if (result == DialogResult.Yes)
-                {
-                    Program.cfgreload.Save();
-                }
-            }
         }
 
         private void RefreshDirList()
@@ -223,6 +184,56 @@ namespace ParusBackupAdmin
         private void BackupAutoRun_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.backupauto = BackupAutoRun.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void DayofWeakBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.backupday = DayofWeakBox.SelectedIndex;
+            Properties.Settings.Default.Save();
+        }
+
+        private void BackupHour_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.backuphour = BackupHour.Value;
+            Properties.Settings.Default.Save();
+            Program.UpdateBackupTime();
+        }
+
+        private void BackupMinutes_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.backupminute = BackupMinutes.Value;
+            Properties.Settings.Default.Save();
+            Program.UpdateBackupTime();
+        }
+
+        private void Interval_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.interval = Interval.Value;
+            Properties.Settings.Default.Save();
+        }
+
+        private void StartCheck_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.startcheck = StartCheck.Value;
+            Properties.Settings.Default.Save();
+        }
+
+        private void AlertInterval_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.alert_interval = AlertInterval.Value;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Alert1Box_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.alert1box = Alert1Box.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Alert2Box_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.alert2box = Alert2Box.Text;
             Properties.Settings.Default.Save();
         }
     }

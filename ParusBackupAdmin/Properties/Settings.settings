@@ -32,5 +32,29 @@
     <Setting Name="backupauto" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="backupday" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="backuphour" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="backupminute" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="interval" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="startcheck" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="alert_interval" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="alert1box" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Необходимо закрыть Парус к {time} для создания бэкапа база данных.</Value>
+    </Setting>
+    <Setting Name="alert2box" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Производится бэкап базы данных. Нельзя запускать Парус до {time}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

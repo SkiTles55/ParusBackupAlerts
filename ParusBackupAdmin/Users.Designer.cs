@@ -30,13 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Users));
             this.UsersListView = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.interval_check_p = new System.Windows.Forms.NumericUpDown();
-            this.HelperAutoRun = new System.Windows.Forms.CheckBox();
             this.sID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.helper_runned = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HelperClose = new System.Windows.Forms.Button();
+            this.msg_button = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.interval_check_p = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.UsersListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.interval_check_p)).BeginInit();
             this.SuspendLayout();
@@ -50,12 +48,32 @@
             this.UsersListView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.sID,
             this.sName,
-            this.helper_runned});
+            this.msg_button});
             this.UsersListView.Location = new System.Drawing.Point(12, 12);
             this.UsersListView.Name = "UsersListView";
             this.UsersListView.RowHeadersVisible = false;
             this.UsersListView.Size = new System.Drawing.Size(483, 330);
             this.UsersListView.TabIndex = 0;
+            this.UsersListView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.UsersListView_CellContentClick);
+            // 
+            // sID
+            // 
+            this.sID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.sID.HeaderText = "ID";
+            this.sID.Name = "sID";
+            // 
+            // sName
+            // 
+            this.sName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.sName.HeaderText = "Пользователь";
+            this.sName.Name = "sName";
+            // 
+            // msg_button
+            // 
+            this.msg_button.HeaderText = "Отправить сообщение";
+            this.msg_button.Name = "msg_button";
+            this.msg_button.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.msg_button.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // label1
             // 
@@ -75,57 +93,11 @@
             this.interval_check_p.TabIndex = 2;
             this.interval_check_p.ValueChanged += new System.EventHandler(this.interval_check_p_ValueChanged);
             // 
-            // HelperAutoRun
-            // 
-            this.HelperAutoRun.Checked = global::ParusBackupAdmin.Properties.Settings.Default.autohelper_checkbox;
-            this.HelperAutoRun.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.HelperAutoRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.HelperAutoRun.Location = new System.Drawing.Point(12, 392);
-            this.HelperAutoRun.Name = "HelperAutoRun";
-            this.HelperAutoRun.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.HelperAutoRun.Size = new System.Drawing.Size(485, 24);
-            this.HelperAutoRun.TabIndex = 3;
-            this.HelperAutoRun.Text = "Автоматический запуск помощника";
-            this.HelperAutoRun.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.HelperAutoRun.UseVisualStyleBackColor = true;
-            this.HelperAutoRun.CheckStateChanged += new System.EventHandler(this.HelperAutoRun_CheckStateChanged);
-            // 
-            // sID
-            // 
-            this.sID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.sID.HeaderText = "ID";
-            this.sID.Name = "sID";
-            // 
-            // sName
-            // 
-            this.sName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.sName.HeaderText = "Пользователь";
-            this.sName.Name = "sName";
-            // 
-            // helper_runned
-            // 
-            this.helper_runned.HeaderText = "Помощник";
-            this.helper_runned.Name = "helper_runned";
-            this.helper_runned.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // HelperClose
-            // 
-            this.HelperClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.HelperClose.Location = new System.Drawing.Point(12, 433);
-            this.HelperClose.Name = "HelperClose";
-            this.HelperClose.Size = new System.Drawing.Size(483, 36);
-            this.HelperClose.TabIndex = 4;
-            this.HelperClose.Text = "Закрыть помощника у всех пользователей";
-            this.HelperClose.UseVisualStyleBackColor = true;
-            this.HelperClose.Click += new System.EventHandler(this.HelperClose_Click);
-            // 
             // Users
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(509, 479);
-            this.Controls.Add(this.HelperClose);
-            this.Controls.Add(this.HelperAutoRun);
+            this.ClientSize = new System.Drawing.Size(509, 398);
             this.Controls.Add(this.interval_check_p);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.UsersListView);
@@ -147,10 +119,8 @@
         private System.Windows.Forms.DataGridView UsersListView;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown interval_check_p;
-        private System.Windows.Forms.CheckBox HelperAutoRun;
         private System.Windows.Forms.DataGridViewTextBoxColumn sID;
         private System.Windows.Forms.DataGridViewTextBoxColumn sName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn helper_runned;
-        private System.Windows.Forms.Button HelperClose;
+        private System.Windows.Forms.DataGridViewButtonColumn msg_button;
     }
 }
