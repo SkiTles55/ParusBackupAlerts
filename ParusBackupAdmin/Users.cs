@@ -34,8 +34,8 @@ namespace ParusBackupAdmin
             var senderGrid = (DataGridView)sender;
             if (senderGrid.Columns[e.ColumnIndex].Index == 2 && e.RowIndex >= 0)
             {
-                var session = Program.server.GetSession((int)UsersListView.Rows[e.RowIndex].Cells[0].Value);
-                session.MessageBox("test");
+                //Program.SendMessage((int)UsersListView.Rows[e.RowIndex].Cells[0].Value, "test");
+                // need meesage window
             }
         }
     }

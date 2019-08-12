@@ -197,14 +197,14 @@ namespace ParusBackupAdmin
         {
             Properties.Settings.Default.backuphour = BackupHour.Value;
             Properties.Settings.Default.Save();
-            Program.UpdateBackupTime();
+            //Program.UpdateBackupTime();
         }
 
         private void BackupMinutes_ValueChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.backupminute = BackupMinutes.Value;
             Properties.Settings.Default.Save();
-            Program.UpdateBackupTime();
+            //Program.UpdateBackupTime();
         }
 
         private void Interval_ValueChanged(object sender, EventArgs e)

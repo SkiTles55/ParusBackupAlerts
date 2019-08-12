@@ -22,7 +22,6 @@ namespace ParusBackupAdmin
         public static List<ITerminalServicesSession> activeusers;
         public static List<string> dirs;
         public static List<string> emails;
-        public static ITerminalServer server;
         public static DateTime backupTime;
         public static List<DateTime> FinishedBackups;
         public static Dictionary<int, DateTime> Notifications;
@@ -32,6 +31,7 @@ namespace ParusBackupAdmin
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            backupTime = new DateTime();
             activeusers = new List<ITerminalServicesSession>();
             FinishedBackups = new List<DateTime>();
             Notifications = new Dictionary<int, DateTime>();
@@ -47,17 +47,18 @@ namespace ParusBackupAdmin
             backupTimer.Elapsed += CheckBackupTime;
             backupTimer.Enabled = true;
             Application.Run(icon);
-            ITerminalServicesManager manager = new TerminalServicesManager();
-            server = manager.GetLocalServer();
-            server.Open();
         }
 
         static void UpdateUsers(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (server == null) return;
-            activeusers.Clear();            
-            foreach (var session in server.GetSessions())
-                if (ParusRunned(session.GetProcesses())) activeusers.Add(session);
+            activeusers.Clear();
+            ITerminalServicesManager manager = new TerminalServicesManager();
+            using (ITerminalServer server = manager.GetLocalServer())
+            {
+                server.Open();
+                foreach (ITerminalServicesSession session in server.GetSessions())
+                    if (ParusRunned(session.GetProcesses())) activeusers.Add(session);
+            }
             if (uwindow != null)
             {
                 try { uwindow.UpdateList(); }
@@ -67,7 +68,8 @@ namespace ParusBackupAdmin
 
         static void CheckBackupTime(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if ((int)DateTime.Now.DayOfWeek == Settings.Default.backupday) return;            
+            if ((int)DateTime.Now.DayOfWeek != Settings.Default.backupday) return;
+            backupTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, Settings.Default.backupday, (int)Settings.Default.backuphour, (int)Settings.Default.backupminute, 0);
             if (backupTime < DateTime.Now)
             {
                 if ((DateTime.Now - backupTime).Minutes <= Settings.Default.startcheck)
@@ -76,14 +78,14 @@ namespace ParusBackupAdmin
                     {
                         if (!Notifications.ContainsKey(session.SessionId))
                         {
-                            //session.MessageBox //notify
+                            SendMessage(session.SessionId, Properties.Settings.Default.alert1box.Replace("{time}", backupTime.ToString("HH:mm")));
                             Notifications.Add(session.SessionId, DateTime.Now);
                         }
                         else
                         {
                             if ((DateTime.Now - Notifications[session.SessionId]).TotalMinutes >= (int)Settings.Default.alert_interval)
                             {
-                                //session.MessageBox //notify
+                                SendMessage(session.SessionId, Properties.Settings.Default.alert1box.Replace("{time}", backupTime.ToString("HH:mm")));
                                 Notifications[session.SessionId] = DateTime.Now;
                             }
                         }
@@ -94,8 +96,13 @@ namespace ParusBackupAdmin
             {
                 if (Application.OpenForms.OfType<BackupWindow>().Count() > 0 || !FinishedBackups.Contains(backupTime))
                 {
-                    foreach (var session in server.GetSessions())
-                        KillParusWithNotifiction(session);
+                    ITerminalServicesManager manager = new TerminalServicesManager();
+                    using (ITerminalServer server = manager.GetLocalServer())
+                    {
+                        server.Open();
+                        foreach (ITerminalServicesSession session in server.GetSessions())
+                            KillParusWithNotifiction(session);
+                    }
                 }
                 else
                 {
@@ -121,8 +128,6 @@ namespace ParusBackupAdmin
             //if (kills > 0) session.MessageBox //message here
         }
 
-        public static void UpdateBackupTime() => backupTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, Settings.Default.backupday, (int)Settings.Default.backuphour, (int)Settings.Default.backupminute, 00);
-
         public static void StartBackup()
         {
             if (Application.OpenForms.OfType<BackupWindow>().Count() > 0) return;
@@ -136,6 +141,24 @@ namespace ParusBackupAdmin
             foreach (var l in list)
                 if (l.ProcessName.ToLower() == "salary.exe" || l.ProcessName.ToLower() == "person.exe" || l.ProcessName.ToLower() == "account.exe") result = true;
             return result;
+        }
+
+        public static void SendMessage(int sessionid, string message)
+        {
+            ITerminalServicesManager manager = new TerminalServicesManager();
+            using (ITerminalServer server = manager.GetLocalServer())
+            {
+                server.Open();
+                try
+                {
+                    var session = server.GetSession(sessionid);
+                    session.MessageBox(message, "Сообщение");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка отправки сообщения: " + ex.Message);
+                }
+            }
         }
     }
 }

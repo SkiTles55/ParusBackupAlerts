@@ -38,6 +38,9 @@ namespace ParusBackupAdmin
         {
             _uptoFileCount++;
             int percentCompleted = _uptoFileCount * 100 / _totalFileCount;
+            TimeSpan ts = stopWatch.Elapsed;
+            double minutesleft = ((100 - percentCompleted) / 100) * ts.TotalMinutes;
+            //string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);
             string fileName = args.Name;
             if (stoped) args.ContinueRunning = false;
             BeginInvoke((Action)(() =>

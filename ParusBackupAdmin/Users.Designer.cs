@@ -74,6 +74,8 @@
             this.msg_button.Name = "msg_button";
             this.msg_button.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.msg_button.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.msg_button.Text = "Написать";
+            this.msg_button.UseColumnTextForButtonValue = true;
             // 
             // label1
             // 
