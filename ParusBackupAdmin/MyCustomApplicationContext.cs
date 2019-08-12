@@ -22,6 +22,13 @@ public class MyCustomApplicationContext : ApplicationContext
             }),
             Visible = true
         };
+        trayIcon.MouseDoubleClick += TrayIconDoubleClickHandler;
+    }
+
+    private void TrayIconDoubleClickHandler(object sender, MouseEventArgs e)
+    {
+        Program.window = new Form1();
+        Program.window.Show();
     }
 
     void UserWindow(object sender, EventArgs e)

@@ -39,14 +39,13 @@ namespace ParusBackupAdmin
             _uptoFileCount++;
             int percentCompleted = _uptoFileCount * 100 / _totalFileCount;
             TimeSpan ts = stopWatch.Elapsed;
-            //string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);
             string fileName = args.Name;
             if (stoped) args.ContinueRunning = false;
             BeginInvoke((Action)(() =>
             {
                 ZipProgress.Value = percentCompleted;
                 ProgressLabel.Text = "Текущая операция: архивация файла " + fileName;
-                Program.minutesleft = ((100 - percentCompleted) / 100) * ts.TotalMinutes;
+                Program.minutesleft = ((100 - percentCompleted) / 100) * ts.TotalMinutes; //вот эту хуйню нужно как то переделать
             }));
         }
 
@@ -65,6 +64,7 @@ namespace ParusBackupAdmin
                     backgroundWorker1.CancelAsync();
                     stoped = true;
                     LogOutput.AppendText(Environment.NewLine + "Создание бэкапа отменено");
+                    if (!Program.FinishedBackups.Contains(Program.backupTime)) Program.FinishedBackups.Add(Program.backupTime);
                     if (Properties.Settings.Default.bWautoclose) Close();
                 }
             }
@@ -96,7 +96,7 @@ namespace ParusBackupAdmin
                     List<ITerminalServicesProcess> pr = new List<ITerminalServicesProcess>();
                     var processes = session.GetProcesses();
                     foreach (var l in processes)
-                        if (l.ProcessName.ToLower() == "salary.exe" || l.ProcessName.ToLower() == "person.exe" || l.ProcessName.ToLower() == "account.exe")
+                        if (Program.IsParus(l))
                             pr.Add(l);
                     if (pr.Count > 0) users.Add(session.UserName, pr);
                 }

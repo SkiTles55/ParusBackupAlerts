@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using ParusBackupAdmin.Properties;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -23,6 +24,7 @@ namespace ParusBackupAdmin
         public static List<string> dirs;
         public static List<string> emails;
         public static DateTime backupTime;
+        public static DateTime startuptime;
         public static List<DateTime> FinishedBackups;
         public static Dictionary<int, DateTime> Notifications;
         public static double minutesleft = 20;
@@ -32,6 +34,12 @@ namespace ParusBackupAdmin
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            if (Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
+            {
+                MessageBox.Show("Программа уже запущена", "Ошибка", MessageBoxButtons.OK);
+                Process.GetCurrentProcess().Kill();
+            }
+            startuptime = DateTime.Now;
             backupTime = new DateTime();
             activeusers = new List<ITerminalServicesSession>();
             FinishedBackups = new List<DateTime>();
@@ -70,10 +78,10 @@ namespace ParusBackupAdmin
         static void CheckBackupTime(object sender, System.Timers.ElapsedEventArgs e)
         {
             if ((int)DateTime.Now.DayOfWeek != Settings.Default.backupday) return;
-            backupTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, Settings.Default.backupday, (int)Settings.Default.backuphour, (int)Settings.Default.backupminute, 0);
-            if (backupTime < DateTime.Now)
+            backupTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, (int)Settings.Default.backuphour, (int)Settings.Default.backupminute, 0);
+            if (backupTime > DateTime.Now)
             {
-                if ((DateTime.Now - backupTime).Minutes <= Settings.Default.startcheck)
+                if ((int)(backupTime - DateTime.Now).TotalMinutes <= Settings.Default.startcheck)
                 {
                     foreach (var session in activeusers)
                     {
@@ -95,7 +103,12 @@ namespace ParusBackupAdmin
             }
             else
             {
-                if (Application.OpenForms.OfType<BackupWindow>().Count() > 0 || !FinishedBackups.Contains(backupTime))
+                if (backupTime < startuptime)
+                {
+                    FinishedBackups.Add(backupTime);
+                    return;
+                }
+                if (!FinishedBackups.Contains(backupTime))
                 {
                     ITerminalServicesManager manager = new TerminalServicesManager();
                     using (ITerminalServer server = manager.GetLocalServer())
@@ -104,16 +117,12 @@ namespace ParusBackupAdmin
                         foreach (ITerminalServicesSession session in server.GetSessions())
                             KillParusWithNotifiction(session);
                     }
-                }
-                else
-                {
-                    if (!Settings.Default.backupauto) return;
-                    if (!FinishedBackups.Contains(backupTime))
+                    if (Settings.Default.backupauto && Application.OpenForms.OfType<BackupWindow>().Count() == 0)
                     {
                         bwindow = new BackupWindow();
                         bwindow.ShowDialog();
                     }
-                }
+                }                
             }
         }
 
@@ -121,12 +130,12 @@ namespace ParusBackupAdmin
         {
             int kills = 0;
             foreach (var l in session.GetProcesses())
-                if (l.ProcessName.ToLower() == "salary.exe" || l.ProcessName.ToLower() == "person.exe" || l.ProcessName.ToLower() == "account.exe")
+                if (IsParus(l))
                 {
                     l.Kill();
                     kills++;
                 }
-            if (kills > 0) SendMessage(session.SessionId, Settings.Default.alert2box.Replace("{time}", DateTime.Now.AddMinutes(minutesleft).ToString("HH:mm")));
+            if (kills > 0) SendMessage(session.SessionId, Settings.Default.alert2box.Replace("{time}", DateTime.Now.AddMinutes(minutesleft + 2).ToString("HH:mm")));
         }
 
         public static void StartBackup()
@@ -140,8 +149,14 @@ namespace ParusBackupAdmin
         {
             bool result = false;
             foreach (var l in list)
-                if (l.ProcessName.ToLower() == "salary.exe" || l.ProcessName.ToLower() == "person.exe" || l.ProcessName.ToLower() == "account.exe") result = true;
+                if (IsParus(l)) result = true;
             return result;
+        }
+
+        public static bool IsParus(ITerminalServicesProcess l)
+        {
+            //return l.ProcessName.ToLower() == "salary.exe" || l.ProcessName.ToLower() == "person.exe" || l.ProcessName.ToLower() == "account.exe";
+            return l.ProcessName.ToLower() == "msinfo32.exe"; //debug
         }
 
         public static void SendMessage(int sessionid, string message)
