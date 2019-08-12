@@ -93,7 +93,7 @@
             this.interval_check_p.Name = "interval_check_p";
             this.interval_check_p.Size = new System.Drawing.Size(120, 20);
             this.interval_check_p.TabIndex = 2;
-            this.interval_check_p.ValueChanged += new System.EventHandler(this.interval_check_p_ValueChanged);
+            this.interval_check_p.ValueChanged += new System.EventHandler(this.Interval_check_p_ValueChanged);
             // 
             // Users
             // 

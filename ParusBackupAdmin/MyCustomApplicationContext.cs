@@ -32,7 +32,8 @@ public class MyCustomApplicationContext : ApplicationContext
 
     void BackupStart(object sender, EventArgs e)
     {
-        Program.StartBackup();
+        DialogResult result = MessageBox.Show("Уверены что хотите запустить бэкап?", "Подтвердите действие", MessageBoxButtons.OKCancel);
+        if (result == DialogResult.OK) Program.StartBackup();
     }
 
     void SettingsWindow(object sender, EventArgs e)

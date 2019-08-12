@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IPrompt;
+using System;
 using System.Windows.Forms;
 
 namespace ParusBackupAdmin
@@ -22,7 +23,7 @@ namespace ParusBackupAdmin
 
         private void Users_Load(object sender, EventArgs e) => Invoke(new Action(RefreshRows));
 
-        private void interval_check_p_ValueChanged(object sender, EventArgs e)
+        private void Interval_check_p_ValueChanged(object sender, EventArgs e)
         {
             Program.checkTimer.Interval = (double)interval_check_p.Value * 10000;
             Properties.Settings.Default.check_interval = (int)interval_check_p.Value;
@@ -34,8 +35,8 @@ namespace ParusBackupAdmin
             var senderGrid = (DataGridView)sender;
             if (senderGrid.Columns[e.ColumnIndex].Index == 2 && e.RowIndex >= 0)
             {
-                //Program.SendMessage((int)UsersListView.Rows[e.RowIndex].Cells[0].Value, "test");
-                // need meesage window
+                string message = IInputBox.Show("Сообщение", "Введите ваше сообщение для " + UsersListView.Rows[e.RowIndex].Cells[1].Value);
+                if (!string.IsNullOrEmpty(message)) Program.SendMessage((int)UsersListView.Rows[e.RowIndex].Cells[0].Value, message);
             }
         }
     }
