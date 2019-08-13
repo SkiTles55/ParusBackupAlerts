@@ -27,7 +27,7 @@ namespace ParusBackupAdmin
         public static DateTime startuptime;
         public static List<DateTime> FinishedBackups;
         public static Dictionary<int, DateTime> Notifications;
-        public static double minutesleft = 20;
+        public static double secondsleft = 20;
 
         [STAThread]
         static void Main()
@@ -135,7 +135,7 @@ namespace ParusBackupAdmin
                     l.Kill();
                     kills++;
                 }
-            if (kills > 0) SendMessage(session.SessionId, Settings.Default.alert2box.Replace("{time}", DateTime.Now.AddMinutes(minutesleft + 2).ToString("HH:mm")));
+            if (kills > 0) SendMessage(session.SessionId, Settings.Default.alert2box.Replace("{time}", DateTime.Now.AddSeconds(secondsleft * 3).ToString("HH:mm")));
         }
 
         public static void StartBackup()

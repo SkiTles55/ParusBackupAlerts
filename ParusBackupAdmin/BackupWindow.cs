@@ -45,7 +45,8 @@ namespace ParusBackupAdmin
             {
                 ZipProgress.Value = percentCompleted;
                 ProgressLabel.Text = "Текущая операция: архивация файла " + fileName;
-                Program.minutesleft = ((100 - percentCompleted) / 100) * ts.TotalMinutes; //вот эту хуйню нужно как то переделать
+                Program.secondsleft = (ts.TotalSeconds / _uptoFileCount) * (_totalFileCount - _uptoFileCount);
+                timeLabel.Text = "Примерно осталось: " + TimeSpan.FromSeconds(Program.secondsleft).ToString(@"mm\:ss");
             }));
         }
 
