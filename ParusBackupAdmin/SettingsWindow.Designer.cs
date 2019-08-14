@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BackupAutoRun = new System.Windows.Forms.CheckBox();
             this.SavePathSet = new System.Windows.Forms.Button();

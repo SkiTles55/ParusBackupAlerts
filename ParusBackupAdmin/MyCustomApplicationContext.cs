@@ -27,7 +27,7 @@ public class MyCustomApplicationContext : ApplicationContext
 
     private void TrayIconDoubleClickHandler(object sender, MouseEventArgs e)
     {
-        Program.window = new Form1();
+        Program.window = new ParusBackupAdmin.Form1();
         Program.window.Show();
     }
 
@@ -45,7 +45,7 @@ public class MyCustomApplicationContext : ApplicationContext
 
     void SettingsWindow(object sender, EventArgs e)
     {
-        Program.window = new Form1();
+        Program.window = new ParusBackupAdmin.Settings();
         Program.window.Show();
     }
 

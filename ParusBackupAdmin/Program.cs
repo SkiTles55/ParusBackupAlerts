@@ -17,7 +17,7 @@ namespace ParusBackupAdmin
         static MyCustomApplicationContext icon;
         public static System.Timers.Timer checkTimer;
         public static System.Timers.Timer backupTimer;
-        public static Form1 window;
+        public static Settings window;
         public static Users uwindow;
         public static BackupWindow bwindow;
         public static List<ITerminalServicesSession> activeusers;
@@ -153,11 +153,7 @@ namespace ParusBackupAdmin
             return result;
         }
 
-        public static bool IsParus(ITerminalServicesProcess l)
-        {
-            //return l.ProcessName.ToLower() == "salary.exe" || l.ProcessName.ToLower() == "person.exe" || l.ProcessName.ToLower() == "account.exe";
-            return l.ProcessName.ToLower() == "msinfo32.exe"; //debug
-        }
+        public static bool IsParus(ITerminalServicesProcess l) => l.ProcessName.ToLower() == "salary.exe" || l.ProcessName.ToLower() == "person.exe" || l.ProcessName.ToLower() == "account.exe";
 
         public static void SendMessage(int sessionid, string message)
         {
