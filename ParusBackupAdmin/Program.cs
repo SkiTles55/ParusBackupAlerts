@@ -17,7 +17,7 @@ namespace ParusBackupAdmin
         static MyCustomApplicationContext icon;
         public static System.Timers.Timer checkTimer;
         public static System.Timers.Timer backupTimer;
-        public static Settings window;
+        public static SettingsWindow window;
         public static Users uwindow;
         public static BackupWindow bwindow;
         public static List<ITerminalServicesSession> activeusers;
@@ -44,7 +44,7 @@ namespace ParusBackupAdmin
             activeusers = new List<ITerminalServicesSession>();
             FinishedBackups = new List<DateTime>();
             Notifications = new Dictionary<int, DateTime>();
-            checkTimer = new System.Timers.Timer(Settings.Default.check_interval * 10000);
+            checkTimer = new System.Timers.Timer(Settings.Default.check_interval * 1000);
             checkTimer.Elapsed += UpdateUsers;
             checkTimer.Enabled = true;
             dirs = JsonConvert.DeserializeObject<List<string>>(Settings.Default.dirs);

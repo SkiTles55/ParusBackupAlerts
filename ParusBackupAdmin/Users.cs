@@ -25,7 +25,7 @@ namespace ParusBackupAdmin
 
         private void Interval_check_p_ValueChanged(object sender, EventArgs e)
         {
-            Program.checkTimer.Interval = (double)interval_check_p.Value * 10000;
+            Program.checkTimer.Interval = (double)interval_check_p.Value * 1000;
             Properties.Settings.Default.check_interval = (int)interval_check_p.Value;
             Properties.Settings.Default.Save();
         }

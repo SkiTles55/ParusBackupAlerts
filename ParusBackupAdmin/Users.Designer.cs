@@ -83,16 +83,31 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(12, 360);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(206, 20);
+            this.label1.Size = new System.Drawing.Size(202, 20);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Интервал проверок (мин.)";
+            this.label1.Text = "Интервал проверок (сек.)";
             // 
             // interval_check_p
             // 
             this.interval_check_p.Location = new System.Drawing.Point(375, 363);
+            this.interval_check_p.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.interval_check_p.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.interval_check_p.Name = "interval_check_p";
             this.interval_check_p.Size = new System.Drawing.Size(120, 20);
             this.interval_check_p.TabIndex = 2;
+            this.interval_check_p.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.interval_check_p.ValueChanged += new System.EventHandler(this.Interval_check_p_ValueChanged);
             // 
             // Users

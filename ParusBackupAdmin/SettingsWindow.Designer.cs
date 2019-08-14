@@ -1,6 +1,6 @@
 ﻿namespace ParusBackupAdmin
 {
-    partial class Form1
+    partial class SettingsWindow
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsWindow));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BackupAutoRun = new System.Windows.Forms.CheckBox();
             this.SavePathSet = new System.Windows.Forms.Button();
@@ -201,7 +201,7 @@
             // 
             // Interval
             // 
-            this.Interval.Location = new System.Drawing.Point(270, 90);
+            this.Interval.Location = new System.Drawing.Point(270, 95);
             this.Interval.Maximum = new decimal(new int[] {
             60,
             0,
@@ -225,7 +225,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 92);
+            this.label13.Location = new System.Drawing.Point(6, 97);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(159, 20);
             this.label13.TabIndex = 21;
@@ -287,7 +287,7 @@
             // 
             // AlertInterval
             // 
-            this.AlertInterval.Location = new System.Drawing.Point(270, 161);
+            this.AlertInterval.Location = new System.Drawing.Point(270, 166);
             this.AlertInterval.Maximum = new decimal(new int[] {
             60,
             0,
@@ -311,7 +311,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 163);
+            this.label6.Location = new System.Drawing.Point(6, 168);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(182, 20);
             this.label6.TabIndex = 9;
@@ -328,7 +328,7 @@
             // 
             // StartCheck
             // 
-            this.StartCheck.Location = new System.Drawing.Point(270, 125);
+            this.StartCheck.Location = new System.Drawing.Point(270, 130);
             this.StartCheck.Maximum = new decimal(new int[] {
             60,
             0,
@@ -352,7 +352,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 127);
+            this.label4.Location = new System.Drawing.Point(6, 132);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 20);
             this.label4.TabIndex = 6;
@@ -360,7 +360,7 @@
             // 
             // BackupMinutes
             // 
-            this.BackupMinutes.Location = new System.Drawing.Point(336, 55);
+            this.BackupMinutes.Location = new System.Drawing.Point(336, 60);
             this.BackupMinutes.Maximum = new decimal(new int[] {
             59,
             0,
@@ -383,7 +383,7 @@
             // 
             // BackupHour
             // 
-            this.BackupHour.Location = new System.Drawing.Point(270, 55);
+            this.BackupHour.Location = new System.Drawing.Point(270, 60);
             this.BackupHour.Maximum = new decimal(new int[] {
             23,
             0,
@@ -397,7 +397,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 57);
+            this.label2.Location = new System.Drawing.Point(6, 62);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(115, 20);
             this.label2.TabIndex = 2;
@@ -414,7 +414,7 @@
             "Четверг",
             "Пятница",
             "Суббота"});
-            this.DayofWeakBox.Location = new System.Drawing.Point(199, 19);
+            this.DayofWeakBox.Location = new System.Drawing.Point(199, 24);
             this.DayofWeakBox.Name = "DayofWeakBox";
             this.DayofWeakBox.Size = new System.Drawing.Size(183, 28);
             this.DayofWeakBox.TabIndex = 1;
@@ -423,7 +423,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Location = new System.Drawing.Point(6, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(109, 20);
             this.label1.TabIndex = 0;
@@ -457,7 +457,7 @@
             this.groupBox2.Size = new System.Drawing.Size(393, 619);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Настройки помощника";
+            this.groupBox2.Text = "Настройки";
             // 
             // groupBox3
             // 
@@ -588,7 +588,7 @@
             this.AddEmail.UseVisualStyleBackColor = true;
             this.AddEmail.Click += new System.EventHandler(this.AddEmail_Click);
             // 
-            // Form1
+            // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -599,7 +599,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "SettingsWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Парус Бэкап Помощник";
             this.Load += new System.EventHandler(this.Form1_Load);
