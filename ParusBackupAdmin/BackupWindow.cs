@@ -172,7 +172,12 @@ namespace ParusBackupAdmin
         {
             TimeSpan ts = stopWatch.Elapsed;
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);
-            LogOutput.AppendText(Environment.NewLine + "Архивация базы данных завершена. Затрачено времени:" + elapsedTime);
+            if (e.Cancelled)
+                LogOutput.AppendText(Environment.NewLine + "Архивация базы данных отменена пользователем.");
+            else if (e.Error != null)
+                LogOutput.AppendText(Environment.NewLine + "При архивация базы данных произошла ошибка: " + e.Error.Message);
+            else
+                LogOutput.AppendText(Environment.NewLine + "Архивация базы данных завершена. Затрачено времени:" + elapsedTime);
             ProgressLabel.Text = "Архивация базы данных завершена";
             if (Properties.Settings.Default.emailnotify && !String.IsNullOrEmpty(Properties.Settings.Default.emaillogin) && !String.IsNullOrEmpty(Properties.Settings.Default.emailpass))
             {
