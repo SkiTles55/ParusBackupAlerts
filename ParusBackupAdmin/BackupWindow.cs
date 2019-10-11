@@ -90,39 +90,50 @@ namespace ParusBackupAdmin
             ITerminalServicesManager manager = new TerminalServicesManager();
             using (ITerminalServer server = manager.GetLocalServer())
             {
-                Dictionary<string, List<ITerminalServicesProcess>> users = new Dictionary<string, List<ITerminalServicesProcess>>();
-                server.Open();
-                foreach (var session in server.GetSessions())
+                try
                 {
-                    List<ITerminalServicesProcess> pr = new List<ITerminalServicesProcess>();
-                    var processes = session.GetProcesses();
-                    foreach (var l in processes)
-                        if (Program.IsParus(l))
-                            pr.Add(l);
-                    if (pr.Count > 0) users.Add(session.UserName, pr);
-                }
-                if (users.Count > 0)
-                {
-                    string text = String.Empty;
-                    foreach (var u in users)
+                    Dictionary<string, List<ITerminalServicesProcess>> users = new Dictionary<string, List<ITerminalServicesProcess>>();
+                    server.Open();
+                    foreach (var session in server.GetSessions())
                     {
-                        if (String.IsNullOrEmpty(text)) text = u.Key;
-                        else text += Environment.NewLine + u.Key;
+                        List<ITerminalServicesProcess> pr = new List<ITerminalServicesProcess>();
+                        var processes = session.GetProcesses();
+                        foreach (var l in processes)
+                            if (Program.IsParus(l))
+                                pr.Add(l);
+                        if (pr.Count > 0) users.Add(session.UserName, pr);
                     }
-                    var result = AutoClosingMessageBox.Show(text, "Закрыть все активные соединения?", 60000, MessageBoxButtons.YesNo, DialogResult.Yes);
-                    if (result == DialogResult.Yes)
+                    if (users.Count > 0)
                     {
+                        string text = String.Empty;
                         foreach (var u in users)
                         {
-                            foreach (var proc in u.Value)
-                                proc.Kill();
+                            if (String.IsNullOrEmpty(text)) text = u.Key;
+                            else text += Environment.NewLine + u.Key;
                         }
-                        BeginInvoke((Action)(() =>
+                        var result = AutoClosingMessageBox.Show(text, "Закрыть все активные соединения?", 60000, MessageBoxButtons.YesNo, DialogResult.Yes);
+                        if (result == DialogResult.Yes)
                         {
-                            LogOutput.AppendText(Environment.NewLine + "Закрытые пользователи:" + Environment.NewLine + text);
+                            foreach (var u in users)
+                            {
+                                foreach (var proc in u.Value)
+                                    proc.Kill();
+                            }
+                            BeginInvoke((Action)(() =>
+                            {
+                                LogOutput.AppendText(Environment.NewLine + "Закрытые пользователи:" + Environment.NewLine + text);
 
-                        }));
+                            }));
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    BeginInvoke((Action)(() =>
+                    {
+                        LogOutput.AppendText(Environment.NewLine + "Ошибка проверки пользователей:" + ex.Message);
+
+                    }));
                 }
             }
             _totalFileCount = 0;
